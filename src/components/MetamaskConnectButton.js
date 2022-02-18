@@ -67,7 +67,7 @@ const MetamaskConnectButton = () => {
           }
           activate(injected, (e) => {
             if (e instanceof UnsupportedChainIdError) {
-              setContentError("Only Ropsten supported.");
+              setContentError("Network not supported.");
             }
           });
         }}
@@ -84,7 +84,7 @@ const MetamaskConnectButton = () => {
       </Text>
       <ConnectBtn
         buttonStyle="btn--outline"
-        onClick={() => onLogOut(deactivate, () => navigate.push("/"))}
+        onClick={() => onLogOut(deactivate, () => navigate("/"))}
       >
         LOG OUT
       </ConnectBtn>
