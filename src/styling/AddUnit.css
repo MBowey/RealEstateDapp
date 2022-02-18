@@ -1,0 +1,104 @@
+.custom-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #242424;
+  border-color: #fff;
+  border-width: 5px;
+  border-radius: 10px;
+  padding: 25px;
+  width: 750px;
+}
+
+.custom-input {
+  position: relative;
+  font-size: 18px;
+  padding-top: 10px;
+  margin-bottom: 5px;
+}
+
+.custom-input input {
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #242424;
+  color: #fff;
+  padding: var(--field-padding);
+  border-radius: 3px;
+  margin-right: 10px;
+  width: 250px;
+  outline: none;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.custom-input .placeholder {
+  position: absolute;
+  left: var(--field-padding);
+  width: calc(100% - (var(--field-padding) * 2));
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  top: 30px;
+  background: transparent;
+  margin-left: 5px;
+  line-height: 100%;
+  transform: translateY(-50%);
+  color: #fff;
+  transition: top 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+}
+
+.custom-input input:focus + .placeholder {
+  top: 8px;
+  font-size: 16px;
+  color: #fff;
+  background: transparent;
+}
+
+.custom-input input:valid,
+.custom-input input:focus {
+  background: #242424;
+  border-color: #fff;
+  border-radius: 10px;
+  padding: 8px 20px;
+  transition-delay: 0.1s;
+}
+
+.custom-input input + .placeholder {
+  padding: 0.5px;
+  left: 8px;
+}
+
+/* .custom-input input:valid + placeholder,
+.custom-input input:focus + placehold {
+  top: 10px;
+} */
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.custom-button {
+  background-color: #242424;
+  padding: 8px 20px;
+  border-color: #fff;
+  border-width: 5px;
+  border-radius: 10px;
+  transition: all 0.3s ease-out;
+  font-size: 22px;
+  color: #fff;
+  width: 275px;
+  height: 75px;
+}
+
+.custom-button:hover {
+  background-color: #fff;
+  border-color: #242424;
+  color: #242424;
+  border-width: 5px;
+}

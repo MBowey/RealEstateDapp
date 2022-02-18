@@ -1,0 +1,21 @@
+{
+  "client": {
+    "js": [
+      "http://localhost:3000/static/js/client.js"
+    ],
+    "map": [
+      "http://localhost:3000/static/js/client.js.map"
+    ],
+    "chunks": [
+      "client"
+    ]
+  },
+  "noentry": {
+    "html": [
+      "http://localhost:3000/index.html"
+    ],
+    "jpeg": [
+      "http://localhost:3000/static/media/hero-image-inner.2456deff.jpeg"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+.units {
+  display: flex;
+  background: #fff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  object-fit: contain;
+}
+
+.addunit__container {
+  background: url("../images/banners/hero-image-inner.jpeg") center center/cover
+    no-repeat;
+  height: 100vh;
+  max-height: 600px;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+  object-fit: contain;
+}
+
+.addunit__container > h1 {
+  color: #fff;
+  font-size: 70px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.addunit__wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.addunit__wrapper > h4 {
+  color: #fff;
+  align-items: center;
+  font-size: 30px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
