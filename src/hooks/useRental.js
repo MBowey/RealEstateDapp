@@ -8,7 +8,7 @@ import { useAppContext } from "../AppContext";
 export const useRental = () => {
   const { account } = useWeb3React();
   const { isValidNetwork } = useIsValidNetwork();
-  const rentalsContractAddress = "0xFc7dF251862cC3B2A06FDE664e3f7aB7954802b6";
+  const rentalsContractAddress = "0x7CDbf5E89ce8f504e52f65Ae5E7C3F0449244a0D";
   const rentalsContract = useContract(rentalsContractAddress, RentalsABI);
   const { setTxnStatus } = useAppContext();
   const [rentalsAddress, setRentalsAddress] = useState(null);
