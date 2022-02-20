@@ -51,7 +51,26 @@ const MetamaskConnectButton = () => {
   }, []);
 
   if (status === pageState.LOADING) {
-    return <Text>Loading..</Text>;
+    return (
+      <ConnectBtn
+        buttonStyle="btn--outline"
+        onClick={() => {
+          if (!window.ethereum) {
+            setContentError(
+              "Looks like you don't have Metamask, you'll need it to use this app."
+            );
+            return;
+          }
+          activate(injected, (e) => {
+            if (e instanceof UnsupportedChainIdError) {
+              setContentError("Network not supported.");
+            }
+          });
+        }}
+      >
+        CONNECT
+      </ConnectBtn>
+    );
   }
 
   if (status === pageState.READY && !active) {

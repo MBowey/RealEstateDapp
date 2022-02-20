@@ -6,12 +6,23 @@ import { RentalCard } from "../../components/Rentals/RentalCard";
 import "../../styling/AddUnit.css";
 import { colors } from "../../theme";
 import { useRental } from "../../hooks/useRental";
+import { useWeb3React } from "@web3-react/core";
 import { useAppContext } from "../../AppContext";
 // import { Spinner } from "react-bootstrap";
 import useEth from "../../hooks/useEth";
 import useTransaction from "../../hooks/useTransaction";
 import "../../App.css";
 import "../../styling/Units.css";
+
+const CONFIRMATION_COUNT = 1;
+
+const DetailsState = {
+  LOADING: "LOADING",
+  WAITING: "WAITING_CONFIRMATIONS",
+  READY: "READY",
+  ERROR: "ERROR",
+  SOLD: "LISTED",
+};
 
 const Container = styled.div`
   display: flex;
@@ -38,12 +49,13 @@ const Rentals = () => {
   //   units: [],
   // };
 
-  const { addRental, unitNumber, unitAddress, rent, deposit, term, startDate } =
-    useRental();
-  const { txnStatus, setTxnStatus } = useTransaction();
-
-  const handleAddUnit = () =>
-    addRental(unitNumber, unitAddress, rent, deposit, term, startDate);
+  const [status, setStatus] = useState(DetailsState.READY);
+  const [mmError, setMmError] = useState(null);
+  const [txHash, setTxHash] = useState(null);
+  const [listing, setListing] = useState(undefined);
+  const { active, account, chainId } = useWeb3React();
+  const { rentalsContract } = useRental();
+  const contract = rentalsContract;
 
   const handleInputChange = (event) => {
     const target = event.target;
@@ -54,48 +66,29 @@ const Rentals = () => {
     });
   };
 
-  const AddUnit = (event) => {
-    //   const { unitNumber, unitAddress, rent, deposit, term, startDate } =
-    //     this.state;
-    // const transaction = await addRental( unitNumber, unitAddress, rent, deposit, term, startDate);
-
-    const { unitNumber, unitAddress, rent, deposit, term, startDate } =
-      this.state;
-
-    const unitsInState = this.state.units;
-    console.log(unitsInState);
-
-    const unitsArrayLength = unitsInState.length;
-    const id = unitsArrayLength
-      ? (unitsInState[unitsArrayLength - 1].id += 1)
-      : 1;
-
-    this.setState({
-      units: [
-        ...unitsInState,
-        Object.assign(
-          {},
-          {
-            id,
-            unitNumber,
-            unitAddress,
-            rent,
-            deposit,
-            term,
-            startDate,
-          }
-        ),
-      ],
-      id: "",
-      unitNumber: "",
-      unitAddress: "",
-      Rent: "",
-      Deposit: "",
-      Term: "",
-      StartDate: "",
-    });
-    console.log(unitsInState);
-    localStorage.setItem("units", JSON.stringify(this.state));
+  const AddUnit = async () => {
+    setStatus(DetailsState.LOADING);
+    try {
+      setStatus(DetailsState.WAITING);
+      const txn = await contract.methods.addUnit(
+        unitNumber,
+        unitAddress,
+        rent,
+        deposit,
+        term,
+        startDate,
+        { from: account }
+      );
+      const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
+      await txn.wait(confirmations);
+      setTxHash(transaction.hash);
+      setStatus(DetailsState.LISTED);
+    } catch (error) {
+      setStatus(DetailsState.ERROR);
+      if (error.code && typeof error.code === "number") {
+        setMmError(error.message);
+      }
+    }
   };
 
   const toggleUnitEditing = (index) => {
@@ -138,67 +131,7 @@ const Rentals = () => {
     });
   };
 
-  // useEffect(() => {
-  //   // storing input name
-  //   localStorage.setItem("units", JSON.stringify(this.state.units));
-  // }, []);
-
-  // if (txnStatus === "LOADING") {
-  //   return (
-  //     <div className="units">
-  //       <div className="addunit__container">
-  //         <h1>List Your Luxury Property!!!!</h1>
-  //         <div className="addunit__wrapper">
-  //           {/* <Spinner animation="border" role="status" className="m-auto" /> */}
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  // if (txnStatus === "COMPLETE") {
-  //   return (
-  //     <div className="units">
-  //       <div className="addunit__container">
-  //         <h1>List Your Luxury Property!!!!</h1>
-  //         <div className="tx__text">
-  //           <h4>Property was successfully listed!!!</h4>
-  //           <div className="button-container">
-  //             <button
-  //               type="submit"
-  //               className="custom-button"
-  //               onClick={() => setTxnStatus("NOT_SUBMITTED")}
-  //             >
-  //               Go Back
-  //             </button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  // if (txnStatus === "ERROR") {
-  //   return (
-  //     <div className="units">
-  //       <div className="addunit__container">
-  //         <h1>List Your Luxury Property!!!!</h1>
-  //         <div className="addunit__wrapper">
-  //           <h4>Transaction ERROR!!!</h4>
-  //           <div className="button-container">
-  //             <button
-  //               type="submit"
-  //               className="custom-button"
-  //               onClick={() => setTxnStatus("NOT_SUBMITTED")}
-  //             >
-  //               Go Back
-  //             </button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  const { LOADING, WAITING, READY, SOLD, ERROR } = DetailsState;
 
   return (
     <div className="units">
@@ -213,8 +146,8 @@ const Rentals = () => {
             term={term}
             startDate={startDate}
             //   Status={Status}
-            onChange={this.handleInputChange}
-            onSubmit={this.AddUnit}
+            onChange={handleInputChange}
+            onSubmit={AddUnit}
           />
         </div>
       </div>
