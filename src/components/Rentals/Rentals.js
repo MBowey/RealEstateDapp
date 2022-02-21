@@ -36,7 +36,7 @@ const Container = styled.div`
   z-index: 1;
 `;
 
-const Rentals = () => {
+const Rentals = (props) => {
   // const state = {
   //   id: "",
   //   unitNumber: "",
@@ -50,6 +50,14 @@ const Rentals = () => {
   // };
 
   const [status, setStatus] = useState(DetailsState.READY);
+  const [units, setUnits] = useState({
+    unitNumber: "",
+    unitAddress: "",
+    rent: "",
+    deposit: "",
+    term: "",
+    startDate: "",
+  });
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
   const [listing, setListing] = useState(undefined);
@@ -61,9 +69,7 @@ const Rentals = () => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    this.setState({
-      [name]: value,
-    });
+    (event) => setUnits({ [name]: value });
   };
 
   const AddUnit = async () => {
@@ -139,12 +145,12 @@ const Rentals = () => {
         <h1>List Your Luxury Property!!!!</h1>
         <div className="addunit__wrapper">
           <AddRental
-            name={unitNumber}
-            unitAddress={unitAddress}
-            rent={rent}
-            deposit={deposit}
-            term={term}
-            startDate={startDate}
+            name={props.unitNumber}
+            unitAddress={props.unitAddress}
+            rent={props.rent}
+            deposit={props.deposit}
+            term={props.term}
+            startDate={props.startDate}
             //   Status={Status}
             onChange={handleInputChange}
             onSubmit={AddUnit}
@@ -155,7 +161,7 @@ const Rentals = () => {
       <div className="cards__container">
         <h1>Rentals</h1>
         <div className="cards__wrapper">
-          <ul className="cards__units">
+          {/* <ul className="cards__units">
             {this.state.units.map((unit, index) => (
               <RentalCard
                 key={unit.id}
@@ -167,7 +173,7 @@ const Rentals = () => {
                 onDelete={() => this.onDelete(index)}
               />
             ))}
-          </ul>
+          </ul> */}
         </div>
       </div>
 
