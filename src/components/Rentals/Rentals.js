@@ -94,20 +94,16 @@ const Rentals = () => {
     });
   };
 
-  const AddUnit = async (event) => {
+  const AddUnit = async () => {
     setStatus(DetailsState.LOADING);
     try {
       setStatus(DetailsState.WAITING);
-      const txn = await contract.addUnit(
-        unitAddress,
-        rent,
-        deposit,
-        term,
-        startDate,
-        {
+      const txn = await contract.methods
+        .addUnit(unitAddress, rent, deposit, term, startDate)
+        .send({
           from: account,
-        }
-      );
+        });
+
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await txn.wait(confirmations);
       setTxHash(txn.hash);
@@ -162,72 +158,117 @@ const Rentals = () => {
     });
   };
 
+  const { LOADING, WAITING, READY, SOLD, ERROR } = DetailsState;
+
   return (
     <div className="units">
       <div className="addunit__container">
         <h1>List Your Luxury Property!!!!</h1>
         <div className="addunit__wrapper">
-          <form className="custom-form" onSubmit={AddUnit}>
-            <label className="custom-input">
-              <input
-                type="text"
-                value={unit.unitNumber.unitNumber}
-                name="unitNumber"
-                onChange={handleInputChange}
-              />
-              <span className="placeholder"> Unit Number </span>
-            </label>
-            <label className="custom-input">
-              <input
-                type="text"
-                value={unit.unitAddress.unitAddress}
-                name="unitAddress"
-                onChange={handleInputChange}
-              />
-              <span className="placeholder"> Address </span>
-            </label>
-            <label className="custom-input">
-              <input
-                type="text"
-                value={unit.rent.rent}
-                name="rent"
-                onChange={handleInputChange}
-              />
-              <span className="placeholder"> Rent </span>
-            </label>
-            <label className="custom-input">
-              <input
-                type="text"
-                value={unit.deposit.deposit}
-                name="deposit"
-                onChange={handleInputChange}
-              />
-              <span className="placeholder"> Deposit </span>
-            </label>
-            <label className="custom-input">
-              <input
-                type="text"
-                value={unit.term.term}
-                name="term"
-                onChange={handleInputChange}
-              />
-              <span className="placeholder"> Term </span>
-            </label>
-            <label className="custom-input">
-              <input
-                type="text"
-                value={unit.startDate.startDate}
-                name="startDate"
-                onChange={handleInputChange}
-              />
-              <span className="placeholder"> Start Date </span>
-            </label>
-            <div className="button-container">
-              <button type="submit" className="custom-button">
-                LIST PROPERTY
-              </button>
-            </div>
-          </form>
+          {status === LOADING ||
+            (status === WAITING && (
+              <>
+                <Spinner
+                  animation="border"
+                  size="sm"
+                  style={{
+                    color: colors.green,
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                  }}
+                />
+                {status === WAITING && (
+                  <Text>
+                    The unit will be listed after {CONFIRMATION_COUNT} block
+                    confirmations.
+                  </Text>
+                )}
+              </>
+            ))}
+          {status === READY && (
+            <form className="custom-form" onSubmit={AddUnit}>
+              <label className="custom-input">
+                <input
+                  type="text"
+                  value={unit.unitNumber.unitNumber}
+                  name="unitNumber"
+                  onChange={handleInputChange}
+                />
+                <span className="placeholder"> Unit Number </span>
+              </label>
+              <label className="custom-input">
+                <input
+                  type="text"
+                  value={unit.unitAddress.unitAddress}
+                  name="unitAddress"
+                  onChange={handleInputChange}
+                />
+                <span className="placeholder"> Address </span>
+              </label>
+              <label className="custom-input">
+                <input
+                  type="text"
+                  value={unit.rent.rent}
+                  name="rent"
+                  onChange={handleInputChange}
+                />
+                <span className="placeholder"> Rent </span>
+              </label>
+              <label className="custom-input">
+                <input
+                  type="text"
+                  value={unit.deposit.deposit}
+                  name="deposit"
+                  onChange={handleInputChange}
+                />
+                <span className="placeholder"> Deposit </span>
+              </label>
+              <label className="custom-input">
+                <input
+                  type="text"
+                  value={unit.term.term}
+                  name="term"
+                  onChange={handleInputChange}
+                />
+                <span className="placeholder"> Term </span>
+              </label>
+              <label className="custom-input">
+                <input
+                  type="text"
+                  value={unit.startDate.startDate}
+                  name="startDate"
+                  onChange={handleInputChange}
+                />
+                <span className="placeholder"> Start Date </span>
+              </label>
+              <div className="button-container">
+                <button type="submit" className="custom-button">
+                  LIST PROPERTY
+                </button>
+              </div>
+            </form>
+          )}
+          {status === SOLD && !!txHash && (
+            <>
+              <Text
+                t3
+                color={colors.green}
+                style={{ marginTop: "20px", marginBottom: "20px" }}
+              >
+                This unit has been listed!!!
+              </Text>
+            </>
+          )}
+          {status === ERROR && (
+            <>
+              <Text
+                style={{ marginTop: "20px", marginBottom: "20px" }}
+                color={colors.red}
+              >
+                {mmError || "Error encountered!"}
+              </Text>
+            </>
+          )}
         </div>
       </div>
 
