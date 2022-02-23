@@ -41,7 +41,7 @@ const Container = styled.div`
   z-index: 1;
 `;
 
-const Rentals = (props) => {
+const Rentals = () => {
   // const state = {
   //   id: "",
   //   unitNumber: "",
@@ -74,7 +74,7 @@ const Rentals = (props) => {
   const [txHash, setTxHash] = useState(null);
   // const [listing, setListing] = useState(undefined);
   const { active, account, chainId } = useWeb3React();
-  const rentalsAddress = RentalsABI.networks[chainId].address; //"0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
+  const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5"; //"0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
   const contract = useContract(rentalsAddress, RentalsABI.abi);
 
   const handleInputChange = (event) => {
@@ -94,16 +94,16 @@ const Rentals = (props) => {
     });
   };
 
-  const AddUnit = async () => {
+  const AddUnit = async (event) => {
     setStatus(DetailsState.LOADING);
     try {
       setStatus(DetailsState.WAITING);
       const txn = await contract.addUnit(
-        unit.unitAddress,
-        unit.rent,
-        unit.deposit,
-        unit.term,
-        unit.startDate,
+        unitAddress,
+        rent,
+        deposit,
+        term,
+        startDate,
         {
           from: account,
         }
