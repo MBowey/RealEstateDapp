@@ -1,6 +1,7 @@
 import React, { Component, useEffect, UseMemo, useState, useForm } from "react";
 import styled from "styled-components";
 import Text from "../Text";
+import { Spinner } from "react-bootstrap";
 import { AddRental } from "../../components/Rentals/AddRental";
 import { RentalCard } from "../../components/Rentals/RentalCard";
 import "../../styling/AddUnit.css";
@@ -94,11 +95,21 @@ const Rentals = () => {
     });
   };
 
-  const AddUnit = async () => {
+  const AddUnit = async (event) => {
     setStatus(DetailsState.LOADING);
     try {
       setStatus(DetailsState.WAITING);
-      const txn = await contract.methods
+      event.preventDefault();
+      setUnit({
+        unitNumber: "",
+        unitAddress: "",
+        rent: "",
+        deposit: "",
+        term: "",
+        startDate: "",
+      });
+      const { unitAddress, rent, deposit, term, startDate } = unit;
+      const txn = await contract
         .addUnit(unitAddress, rent, deposit, term, startDate)
         .send({
           from: account,
