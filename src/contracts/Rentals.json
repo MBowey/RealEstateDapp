@@ -16959,14 +16959,92 @@
   },
   "networks": {
     "1337": {
-      "events": {},
+      "events": {
+        "0xaff779a2b0f7d6ac7566ca9920c1a4cf550c9691db23499a78d4eac3875b76b2": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "unitNumber",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogForRent",
+          "type": "event"
+        },
+        "0xedcece341ee7eb768508ccba653215d8f75e8d2969ac8be59469398f4193e197": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "unitNumber",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogOccupied",
+          "type": "event"
+        },
+        "0x9f766be9553a6f64c84baf47414111171633afad6f2ad2d04e59c7f30a92b9b0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "unitNumber",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogUnitAdded",
+          "type": "event"
+        },
+        "0xd278f3bc5ca0a51dcaa29236496a4fd7057c3e62e63c62a2a9a1324784876cbf": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "unitNumber",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "tenant",
+              "type": "address"
+            }
+          ],
+          "name": "LogUnitRented",
+          "type": "event"
+        },
+        "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        }
+      },
       "links": {},
-      "address": "0x7CDbf5E89ce8f504e52f65Ae5E7C3F0449244a0D",
-      "transactionHash": "0x5ef8db678802968cda35b78d5e5f1364f6b24b745bc8ae06add947f4051e568f"
+      "address": "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5",
+      "transactionHash": "0xf68ba89d2b30ff9ebe9d8ab2dc16f4fec9490a85535f0872ff9d775c98c9cf27"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2022-02-18T04:14:42.735Z",
+  "updatedAt": "2022-02-23T06:03:28.037Z",
   "networkType": "ethereum",
   "devdoc": {
     "events": {

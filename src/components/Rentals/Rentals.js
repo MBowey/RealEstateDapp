@@ -1,4 +1,4 @@
-import React, { Component, useEffect, UseMemo, useState } from "react";
+import React, { Component, useEffect, UseMemo, useState, useForm } from "react";
 import styled from "styled-components";
 import Text from "../Text";
 import { AddRental } from "../../components/Rentals/AddRental";
@@ -7,12 +7,17 @@ import "../../styling/AddUnit.css";
 import { colors } from "../../theme";
 import { useRental } from "../../hooks/useRental";
 import { useWeb3React } from "@web3-react/core";
+// import RentalsABI from "../../static/RentalsABI";
 import { useAppContext } from "../../AppContext";
 // import { Spinner } from "react-bootstrap";
 import useEth from "../../hooks/useEth";
 import useTransaction from "../../hooks/useTransaction";
 import "../../App.css";
 import "../../styling/Units.css";
+import "../../styling/AddUnit.css";
+import { useContract } from "../../hooks/useContract";
+
+import RentalsABI from "../../contracts/Rentals.json";
 
 const CONFIRMATION_COUNT = 1;
 
@@ -50,7 +55,7 @@ const Rentals = (props) => {
   // };
 
   const [status, setStatus] = useState(DetailsState.READY);
-  const [units, setUnits] = useState({
+  const [unit, setUnit] = useState({
     unitNumber: "",
     unitAddress: "",
     rent: "",
@@ -58,39 +63,59 @@ const Rentals = (props) => {
     term: "",
     startDate: "",
   });
+  // const [unitNumber, setUnitNumber] = useState("");
+  // const [unitAddress, setUnitAddress] = useState("");
+  // const [rent, setRent] = useState("");
+  // const [deposit, setDeposit] = useState("");
+  // const [term, setTerm] = useState("");
+  // const [startDate, setStartDate] = useState("");
+
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
-  const [listing, setListing] = useState(undefined);
+  // const [listing, setListing] = useState(undefined);
   const { active, account, chainId } = useWeb3React();
-  const { rentalsContract } = useRental();
-  const contract = rentalsContract;
+  const rentalsAddress = RentalsABI.networks[chainId].address; //"0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
+  const contract = useContract(rentalsAddress, RentalsABI.abi);
 
   const handleInputChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    (event) => setUnits({ [name]: value });
+    setUnit({ ...unit, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(unit);
+    setUnit({
+      unitNumber: "",
+      unitAddress: "",
+      rent: "",
+      deposit: "",
+      term: "",
+      startDate: "",
+    });
   };
 
   const AddUnit = async () => {
     setStatus(DetailsState.LOADING);
     try {
       setStatus(DetailsState.WAITING);
-      const txn = await contract.methods.addUnit(
-        unitNumber,
-        unitAddress,
-        rent,
-        deposit,
-        term,
-        startDate,
-        { from: account }
+      const txn = await contract.addUnit(
+        unit.unitAddress,
+        unit.rent,
+        unit.deposit,
+        unit.term,
+        unit.startDate,
+        {
+          from: account,
+        }
       );
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await txn.wait(confirmations);
-      setTxHash(transaction.hash);
+      setTxHash(txn.hash);
+      console.log("Hash of the transaction: " + { txHash });
       setStatus(DetailsState.LISTED);
     } catch (error) {
       setStatus(DetailsState.ERROR);
+      console.log("An error occured: ", error);
       if (error.code && typeof error.code === "number") {
         setMmError(error.message);
       }
@@ -137,24 +162,72 @@ const Rentals = (props) => {
     });
   };
 
-  const { LOADING, WAITING, READY, SOLD, ERROR } = DetailsState;
-
   return (
     <div className="units">
       <div className="addunit__container">
         <h1>List Your Luxury Property!!!!</h1>
         <div className="addunit__wrapper">
-          <AddRental
-            name={props.unitNumber}
-            unitAddress={props.unitAddress}
-            rent={props.rent}
-            deposit={props.deposit}
-            term={props.term}
-            startDate={props.startDate}
-            //   Status={Status}
-            onChange={handleInputChange}
-            onSubmit={AddUnit}
-          />
+          <form className="custom-form" onSubmit={AddUnit}>
+            <label className="custom-input">
+              <input
+                type="text"
+                value={unit.unitNumber.unitNumber}
+                name="unitNumber"
+                onChange={handleInputChange}
+              />
+              <span className="placeholder"> Unit Number </span>
+            </label>
+            <label className="custom-input">
+              <input
+                type="text"
+                value={unit.unitAddress.unitAddress}
+                name="unitAddress"
+                onChange={handleInputChange}
+              />
+              <span className="placeholder"> Address </span>
+            </label>
+            <label className="custom-input">
+              <input
+                type="text"
+                value={unit.rent.rent}
+                name="rent"
+                onChange={handleInputChange}
+              />
+              <span className="placeholder"> Rent </span>
+            </label>
+            <label className="custom-input">
+              <input
+                type="text"
+                value={unit.deposit.deposit}
+                name="deposit"
+                onChange={handleInputChange}
+              />
+              <span className="placeholder"> Deposit </span>
+            </label>
+            <label className="custom-input">
+              <input
+                type="text"
+                value={unit.term.term}
+                name="term"
+                onChange={handleInputChange}
+              />
+              <span className="placeholder"> Term </span>
+            </label>
+            <label className="custom-input">
+              <input
+                type="text"
+                value={unit.startDate.startDate}
+                name="startDate"
+                onChange={handleInputChange}
+              />
+              <span className="placeholder"> Start Date </span>
+            </label>
+            <div className="button-container">
+              <button type="submit" className="custom-button">
+                LIST PROPERTY
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 
