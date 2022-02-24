@@ -47,6 +47,10 @@ const Listings = () => {
       const idListLengthBN = await contract.unitCount();
       const idListLength = idListLengthBN.toNumber();
       console.log(idListLength);
+      for (let i = 1; i < idListLength; i++) {
+        const units = await contract.units(i);
+        console.log(units);
+      }
       // // const idBNs = await Promise.all(
       // //   Array.from(Array(idListLengthBN.toNumber())).map((_, i) =>
       // //     contract.idList(i)

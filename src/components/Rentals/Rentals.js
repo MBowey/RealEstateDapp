@@ -279,7 +279,7 @@ const Rentals = () => {
       <div className="cards__container">
         <h1>Rentals</h1>
         <div className="cards__wrapper">
-          {/* <ul className="cards__units">
+          <ul className="cards__units">
             {this.state.units.map((unit, index) => (
               <RentalCard
                 key={unit.id}
@@ -291,7 +291,7 @@ const Rentals = () => {
                 onDelete={() => this.onDelete(index)}
               />
             ))}
-          </ul> */}
+          </ul>
         </div>
       </div>
 
