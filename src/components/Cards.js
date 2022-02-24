@@ -6,6 +6,8 @@ import Text from "./Text";
 import CardItem from "./CardItem";
 import { useWeb3React } from "@web3-react/core";
 import { useContract } from "../hooks/useContract";
+import { BigNumber } from "ethers";
+import { formatEther } from "@ethersproject/units";
 
 import RentalsABI from "../contracts/Rentals.json";
 
@@ -43,7 +45,8 @@ const Listings = () => {
     try {
       // still on the lookout for optimal solidity data structures, this ain't it
       const idListLengthBN = await contract.unitCount();
-      console.log(idListLengthBN);
+      const idListLength = idListLengthBN.toNumber();
+      console.log(idListLength);
       // // const idBNs = await Promise.all(
       // //   Array.from(Array(idListLengthBN.toNumber())).map((_, i) =>
       // //     contract.idList(i)
