@@ -64,13 +64,6 @@ const Rentals = () => {
     term: "",
     startDate: "",
   });
-  // const [unitNumber, setUnitNumber] = useState("");
-  // const [unitAddress, setUnitAddress] = useState("");
-  // const [rent, setRent] = useState("");
-  // const [deposit, setDeposit] = useState("");
-  // const [term, setTerm] = useState("");
-  // const [startDate, setStartDate] = useState("");
-
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
   // const [listing, setListing] = useState(undefined);
