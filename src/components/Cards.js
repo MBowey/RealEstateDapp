@@ -48,27 +48,30 @@ const Listings = () => {
       const idListLength = idListLengthBN.toNumber();
       console.log(idListLength);
       for (let i = 1; i < idListLength; i++) {
-        const units = await contract.units(i);
-        console.log(units);
+        const unit = await contract.units(i);
+        const units = [...listings, unit];
+        setListings(units);
+        setStatus(listingState.READY);
       }
-      // // const idBNs = await Promise.all(
-      // //   Array.from(Array(idListLengthBN.toNumber())).map((_, i) =>
-      // //     contract.idList(i)
-      // //   )
-      // );
-      // const ids = idBNs.map((n) => n.toNumber());
-      // const arr = await Promise.all(ids.map((id) => contract.properties(id)));
-      // setListings(arr);
-      setStatus(listingState.READY);
-    } catch (e) {
-      console.log("error:", e);
+    } catch (error) {
+      console.log("error:", error);
       setStatus(listingState.ERROR);
     }
   }, []);
 
+  // // const idBNs = await Promise.all(
+  // //   Array.from(Array(idListLengthBN.toNumber())).map((_, i) =>
+  // //     contract.idList(i)
+  // //   )
+  // );
+  // const ids = idBNs.map((n) => n.toNumber());
+  // const arr = await Promise.all(ids.map((id) => contract.properties(id)));
+  // setListings(arr);
+
   useEffect(() => {
     if (active) {
       getUnits(contract);
+      console.log(listings);
     }
   }, [active]);
 
