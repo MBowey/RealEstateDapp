@@ -1,13 +1,13 @@
 import React from "react";
 import "../App.css";
-import Cards from "../components/Cards";
+import Listings from "../components/Listings";
 import HeroSection from "../components/HeroSection";
 
 function Tenant() {
   return (
     <>
       <HeroSection />
-      <Cards />
+      <Listings />
     </>
   );
 }

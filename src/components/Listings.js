@@ -46,32 +46,24 @@ const Listings = () => {
       // still on the lookout for optimal solidity data structures, this ain't it
       const idListLengthBN = await contract.unitCount();
       const idListLength = idListLengthBN.toNumber();
-      console.log(idListLength);
-      for (let i = 1; i < idListLength; i++) {
-        const unit = await contract.units(i);
-        const units = [...listings, unit];
-        setListings(units);
-        setStatus(listingState.READY);
-        console.log(listings);
+      const ids = [];
+      for (let idNumber = 1; idNumber < idListLength; idNumber++) {
+        ids.push(idNumber);
       }
+      console.log(ids);
+      const arr = await Promise.all(ids.map((id) => contract.units(id)));
+      setListings(arr);
+      console.log(arr);
     } catch (error) {
       console.log("error:", error);
       setStatus(listingState.ERROR);
     }
   }, []);
 
-  // // const idBNs = await Promise.all(
-  // //   Array.from(Array(idListLengthBN.toNumber())).map((_, i) =>
-  // //     contract.idList(i)
-  // //   )
-  // );
-  // const ids = idBNs.map((n) => n.toNumber());
-  // const arr = await Promise.all(ids.map((id) => contract.properties(id)));
-  // setListings(arr);
-
   useEffect(() => {
     if (active) {
       getUnits(contract);
+      console.log(listings);
     }
   }, [active]);
 
@@ -103,6 +95,7 @@ const Listings = () => {
     <div className="cards">
       <div className="cards__container">
         <h1>Check out these EPIC Rentals</h1>
+
         <div className="cards__wrapper">
           <ul className="cards__units">
             {/* {listings.map((unit, index) => (
@@ -124,20 +117,3 @@ const Listings = () => {
 };
 
 export default Listings;
-
-// function Cards() {
-//   return (
-//     <div className="cards">
-//       <div className="cards__container">
-//         <h1>Check out these EPIC Rentals</h1>
-//         <div className="cards__wrapper">
-//           <ul className="cards__units">
-//             <Listings />
-//           </ul>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Cards;
