@@ -52,6 +52,7 @@ const FilteredListing = ({ listings, state }) => {
     <StyledDiv>
       {filtered.map((l) => {
         const id = BigNumber.from(l.unitNumber).toNumber();
+
         return <ListingItem key={id} item={l} />;
       })}
     </StyledDiv>
@@ -67,22 +68,25 @@ const ListingItem = ({ item }) => {
     term,
     startDate,
     tenant,
+    state,
     landlord,
   } = item;
   return (
     <StyledItem>
       {/* <img className="cards__unit__img" src="/images/apts/apt1.jpeg" /> */}
       <StyledItemTextContainer>
-        <Text center bold color={colors.green}>
-          {rent} ETH/mo
-        </Text>
+        {/* <Text center>{unitNumber}</Text> */}
         <Text center>{unitAddress}</Text>
-        {item.state === 0 && (
+        {/* <Text center bold color={colors.green}>
+          {rent} ETH/mo
+        </Text> */}
+
+        {/* {item.state === 0 && (
           <Text center>Tenant: {shortenAddress(item.tenant)}</Text>
         )}
         {item.state === 1 && item.tenant && (
           <Text center>Tenant: {shortenAddress(item.tenant)}</Text>
-        )}
+        )} */}
       </StyledItemTextContainer>
     </StyledItem>
   );
@@ -107,6 +111,7 @@ const Listings = () => {
       const arr = await Promise.all(ids.map((id) => contract.units(id)));
       setListings(arr);
       console.log(arr);
+      setStatus(listingState.READY);
     } catch (error) {
       console.log("error:", error);
       setStatus(listingState.ERROR);
