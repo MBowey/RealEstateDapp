@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import "../styling/Cards.css";
 import "../styling/UnitCard.css";
 import styled from "styled-components";
@@ -79,53 +80,58 @@ const ListingItem = ({ item }) => {
     landlord,
   } = item;
   return (
-    <div className="cards__container">
-      <div className="cards__wrapper">
-        <ul className="cards__items">
-          <li className="cards__item">
-            <figure className="cards__item__pic-wrap" data-category="Luxury">
-              <img
-                className="cards__item__img"
-                alt="Property Image"
-                src={image[unitNumber.toNumber()]}
-              />
-            </figure>
+    <li className="cards__item">
+      <Link className="cards__item__link" to="/Details">
+        <figure className="cards__item__pic-wrap" data-category="Luxury">
+          <img
+            className="cards__item__img"
+            alt="Property Image"
+            src={image[unitNumber.toNumber()]}
+          />
+        </figure>
 
-            <div className="cards__item__info">
-              <div className="row justify-content-center">
-                <h5 className="cards__item__text">{unitNumber.toNumber()}</h5>
-                <h5 className="cards__item__text">{unitAddress}</h5>
-                <h5 className="cards__item__text">{rent.toNumber()} ETH/mo</h5>
-                <h5 className="cards__item__text">
-                  {deposit.toNumber()} ETH/mo
-                </h5>
-                <h5 className="cards__item__text">{term.toNumber()} ETH/mo</h5>
-                <h5 className="cards__item__text">{startDate}</h5>
+        <div className="cards__item__info">
+          <div className="row justify-content-center">
+            <h5 className="cards__item__text">
+              Unit Number: {unitNumber.toNumber()}
+            </h5>
+            <h5 className="cards__item__text"> Unit Address: {unitAddress}</h5>
+            <h5 className="cards__item__text">
+              {" "}
+              Rent: {rent.toNumber()} ETH/mo
+            </h5>
+            <h5 className="cards__item__text">
+              {" "}
+              Deposit: {deposit.toNumber()} ETH/mo
+            </h5>
+            <h5 className="cards__item__text">
+              {" "}
+              Lease Term: {term.toNumber()} ETH/mo
+            </h5>
+            <h5 className="cards__item__text">Start Date: {startDate}</h5>
 
-                {item.state === 0 && (
-                  <h5 className="cards__item__text">Status: Available</h5>
-                )}
-                {item.state === 1 && item.tenant && (
-                  <h5 className="cards__item__text">
-                    Tenant: {shortenAddress(item.tenant)}
-                  </h5>
-                )}
+            {item.state === 0 && (
+              <h5 className="cards__item__text">Status: Available</h5>
+            )}
+            {item.state === 1 && item.tenant && (
+              <h5 className="cards__item__text">
+                Tenant: {shortenAddress(item.tenant)}
+              </h5>
+            )}
 
-                <div>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    //   onClick={onRent}
-                  >
-                    Rent
-                  </button>
-                </div>
-              </div>
+            <div>
+              <button
+                type="button"
+                className="btn btn-primary"
+                //   onClick={onRent}
+              >
+                Rent
+              </button>
             </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+          </div>
+        </div>
+      </Link>{" "}
+    </li>
   );
 };
 
@@ -178,10 +184,18 @@ const Listings = () => {
   return (
     <div className="card">
       <h1>Check out these EPIC Rentals!</h1>
-      <h2>Available listings</h2>
-      <FilteredListing listings={listings} state={0} />
-      <h2>Rented</h2>
-      <FilteredListing listings={listings} state={1} />
+      <div className="cards__container">
+        <div className="cards__wrapper">
+          <h2>Available listings</h2>
+          <ul className="cards__items">
+            <FilteredListing listings={listings} state={0} />
+          </ul>
+          <h2>Rented</h2>
+          <ul className="cards__items">
+            <FilteredListing listings={listings} state={1} />
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
