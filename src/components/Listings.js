@@ -11,8 +11,14 @@ import { useContract } from "../hooks/useContract";
 import { BigNumber } from "ethers";
 import { shortenAddress } from "../utils/shortenAddress";
 import { formatEther } from "@ethersproject/units";
+import apt1 from "../images/apts/apt1.jpeg";
+import apt2 from "../images/apts/apt1.jpeg";
+import apt3 from "../images/apts/apt2.jpeg";
+import apt4 from "../images/apts/apt2.jpeg";
 
 import RentalsABI from "../contracts/Rentals.json";
+
+const image = [apt1, apt2, apt3, apt4];
 
 const listingState = {
   LOADING: "LOADING",
@@ -46,17 +52,17 @@ const FilteredListing = ({ listings, state }) => {
   const filtered = listings.filter((l) => l.state === state);
 
   if (filtered.length < 1) {
-    return <Text>Nothing here 🤷</Text>;
+    return <div className="cards__nothing">Nothing rented 🤷</div>;
   }
 
   return (
-    <StyledDiv>
+    <>
       {filtered.map((l) => {
         const id = BigNumber.from(l.unitNumber).toNumber();
 
         return <ListingItem key={id} item={l} />;
       })}
-    </StyledDiv>
+    </>
   );
 };
 
@@ -73,81 +79,51 @@ const ListingItem = ({ item }) => {
     landlord,
   } = item;
   return (
-    //     <div className="cards__wrapper">
-    //       <ul className="cards__units">
-    //         {/* {listings.map((unit, index) => (
-    //           <TenantCard
-    //             key={unit.unitNumber}
-    //             index={index}
-    //             src="/images/apts/apt1.jpeg"
-    //             unit={unit}
-    //             // toggleEditing={() => this.toggleUnitEditing(index)}
-    //             // onChange={this.handleUnitUpdate}
-    //             // onDelete={() => this.onDelete(index)}
-    //           />
-    //         ))} */}
-    //       </ul>
-    //     </div>
-    //   </div>
-    // </div>
-    <div className="card">
-      <h1>Check out these EPIC Rentals!</h1>
-      <div className="cards__container">
-        <div className="cards__wrapper">
-          <ul className="cards__units">
-            <li className="cards__unit">
-              <div className="cards__unit__link">
-                <figure
-                  className="cards__unit__pic-wrap"
-                  data-category="Luxury"
-                >
-                  <img
-                    className="cards__unit__img"
-                    src="/images/apts/apt1.jpeg"
-                  />
-                </figure>
+    <div className="cards__container">
+      <div className="cards__wrapper">
+        <ul className="cards__items">
+          <li className="cards__item">
+            <figure className="cards__item__pic-wrap" data-category="Luxury">
+              <img
+                className="cards__item__img"
+                alt="Property Image"
+                src={image[unitNumber.toNumber()]}
+              />
+            </figure>
 
-                <div className="cards__unit__info">
-                  <div className="row justify-content-center">
-                    <h5 className="cards__item__text">
-                      {unitNumber.toNumber()}
-                    </h5>
-                    <h5 className="cards__item__text">{unitAddress}</h5>
-                    <h5 className="cards__item__text">
-                      {rent.toNumber()} ETH/mo
-                    </h5>
-                    <h5 className="cards__item__text">
-                      {deposit.toNumber()} ETH/mo
-                    </h5>
-                    <h5 className="cards__item__text">
-                      {term.toNumber()} ETH/mo
-                    </h5>
-                    <h5 className="cards__item__text">{startDate}</h5>
+            <div className="cards__item__info">
+              <div className="row justify-content-center">
+                <h5 className="cards__item__text">{unitNumber.toNumber()}</h5>
+                <h5 className="cards__item__text">{unitAddress}</h5>
+                <h5 className="cards__item__text">{rent.toNumber()} ETH/mo</h5>
+                <h5 className="cards__item__text">
+                  {deposit.toNumber()} ETH/mo
+                </h5>
+                <h5 className="cards__item__text">{term.toNumber()} ETH/mo</h5>
+                <h5 className="cards__item__text">{startDate}</h5>
 
-                    {item.state === 0 && (
-                      <h5 className="cards__item__text">Status: Available</h5>
-                    )}
-                    {item.state === 1 && item.tenant && (
-                      <h5 className="cards__item__text">
-                        Tenant: {shortenAddress(item.tenant)}
-                      </h5>
-                    )}
+                {item.state === 0 && (
+                  <h5 className="cards__item__text">Status: Available</h5>
+                )}
+                {item.state === 1 && item.tenant && (
+                  <h5 className="cards__item__text">
+                    Tenant: {shortenAddress(item.tenant)}
+                  </h5>
+                )}
 
-                    <div>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        //   onClick={onRent}
-                      >
-                        Rent
-                      </button>
-                    </div>
-                  </div>
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    //   onClick={onRent}
+                  >
+                    Rent
+                  </button>
                 </div>
               </div>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   );
@@ -200,19 +176,13 @@ const Listings = () => {
   }
 
   return (
-    <>
-      <Text t3 color={colors.green}>
-        Available listings
-      </Text>
+    <div className="card">
+      <h1>Check out these EPIC Rentals!</h1>
+      <h2>Available listings</h2>
       <FilteredListing listings={listings} state={0} />
-      <Text t3 color={colors.red} style={{ marginTop: "20px" }}>
-        Rented
-      </Text>
+      <h2>Rented</h2>
       <FilteredListing listings={listings} state={1} />
-    </>
-    // <div className="cards">
-    //   <div className="cards__container">
-    //     <h1>Check out these EPIC Rentals</h1>
+    </div>
   );
 };
 
