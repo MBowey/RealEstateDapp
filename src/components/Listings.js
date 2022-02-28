@@ -20,8 +20,17 @@ import apt4 from "../images/apts/apt2.jpeg";
 import RentalsABI from "../contracts/Rentals.json";
 
 const image = [apt1, apt2, apt3, apt4];
+const CONFIRMATION_COUNT = 2;
 
 const listingState = {
+  LOADING: "LOADING",
+  WAITING: "WAITING_CONFIRMATIONS",
+  READY: "READY",
+  LEASED: "LEASED",
+  ERROR: "ERROR",
+};
+
+const unitState = {
   LOADING: "LOADING",
   READY: "READY",
   ERROR: "ERROR",
@@ -53,7 +62,7 @@ const FilteredListing = ({ listings, state }) => {
   const filtered = listings.filter((l) => l.state === state);
 
   if (filtered.length < 1) {
-    return <div className="cards__nothing">Nothing rented 🤷</div>;
+    return <div className="cards__nothing">Nothing Rented Yet!! 🤷</div>;
   }
 
   return (
@@ -79,9 +88,34 @@ const ListingItem = ({ item }) => {
     state,
     landlord,
   } = item;
+  const [unitStatus, setUnitStatus] = useState(unitState.READY);
+  const { active } = useWeb3React();
+  const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
+  const contract = useContract(rentalsAddress, RentalsABI.abi);
+
+  const onBuyClick = async (event) => {
+    setUnitStatus(unitState.LOADING);
+    try {
+      setUnitStatus(unitState.WAITING);
+      const transaction = await contract.rentUnit(unitNumber, {
+        from: account,
+        value: deposit,
+      });
+      const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
+      await transaction.wait(confirmations);
+      setTxHash(transaction.hash);
+      setUnitStatus(unitState.LEASED);
+    } catch (e) {
+      setUnitStatus(unitState.ERROR);
+      if (e.code && typeof e.code === "number") {
+        setMmError(e.message);
+      }
+    }
+  };
+
   return (
     <li className="cards__item">
-      <Link className="cards__item__link" to="/Details">
+      <div className="cards__item__link">
         <figure className="cards__item__pic-wrap" data-category="Luxury">
           <img
             className="cards__item__img"
@@ -117,12 +151,13 @@ const ListingItem = ({ item }) => {
           <button
             type="button"
             className="btn-custom"
-            //   onClick={onRent}
+            onClick={onBuyClick}
+            path="/tenant"
           >
             RENT UNIT
           </button>
         </div>
-      </Link>{" "}
+      </div>{" "}
     </li>
   );
 };
@@ -130,6 +165,7 @@ const ListingItem = ({ item }) => {
 const Listings = () => {
   const [listings, setListings] = useState([]);
   const [status, setStatus] = useState(listingState.LOADING);
+  const [unitStatus, setUnitStatus] = useState(unitState.READY);
   const { active } = useWeb3React();
   const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
   const contract = useContract(rentalsAddress, RentalsABI.abi);
