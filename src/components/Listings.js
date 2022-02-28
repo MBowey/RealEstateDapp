@@ -24,15 +24,15 @@ const CONFIRMATION_COUNT = 2;
 
 const listingState = {
   LOADING: "LOADING",
-  WAITING: "WAITING_CONFIRMATIONS",
   READY: "READY",
-  LEASED: "LEASED",
   ERROR: "ERROR",
 };
 
 const unitState = {
   LOADING: "LOADING",
+  WAITING: "WAITING_CONFIRMATIONS",
   READY: "READY",
+  LEASED: "LEASED",
   ERROR: "ERROR",
 };
 
@@ -89,7 +89,9 @@ const ListingItem = ({ item }) => {
     landlord,
   } = item;
   const [unitStatus, setUnitStatus] = useState(unitState.READY);
-  const { active } = useWeb3React();
+  const [mmError, setMmError] = useState(null);
+  const [txHash, setTxHash] = useState(null);
+  const { active, account, chainID } = useWeb3React();
   const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
   const contract = useContract(rentalsAddress, RentalsABI.abi);
 
@@ -112,6 +114,8 @@ const ListingItem = ({ item }) => {
       }
     }
   };
+
+  const { LOADING, WAITING, READY, LEASED, ERROR } = unitState;
 
   return (
     <li className="cards__item">
@@ -148,14 +152,53 @@ const ListingItem = ({ item }) => {
           </div>
         </div>
         <div className="btn-container">
-          <button
-            type="button"
-            className="btn-custom"
-            onClick={onBuyClick}
-            path="/tenant"
-          >
-            RENT UNIT
-          </button>
+          {unitStatus === LOADING ||
+            (unitStatus === WAITING && (
+              <>
+                <Spinner
+                  animation="border"
+                  size="sm"
+                  style={{
+                    color: colors.green,
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                  }}
+                />
+                {unitStatus === WAITING && (
+                  <Text>
+                    The apartment is yours after {CONFIRMATION_COUNT} block
+                    confirmations.
+                  </Text>
+                )}
+              </>
+            ))}
+          {unitStatus === READY && (
+            <button type="button" className="btn-custom" onClick={onBuyClick}>
+              RENT UNIT
+            </button>
+          )}
+          {unitStatus === LEASED && !!txHash && (
+            <>
+              <Text
+                t3
+                color={colors.green}
+                style={{ marginTop: "20px", marginBottom: "20px" }}
+              >
+                This apartment is now yours! Access it with this keycode:{" "}
+                {/* {KEYCODE_DUMMY} */}
+              </Text>
+            </>
+          )}
+          {unitStatus === ERROR && (
+            <>
+              <Text
+                style={{ marginTop: "20px", marginBottom: "20px" }}
+                color={colors.red}
+              >
+                {mmError || "Error encountered!"}
+              </Text>
+            </>
+          )}
         </div>
       </div>{" "}
     </li>
