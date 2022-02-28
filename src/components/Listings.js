@@ -91,7 +91,7 @@ const ListingItem = ({ item }) => {
   const [unitStatus, setUnitStatus] = useState(unitState.READY);
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
-  const { active, account, chainID } = useWeb3React();
+  const { active, account, chainId } = useWeb3React();
   const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
   const contract = useContract(rentalsAddress, RentalsABI.abi);
 
@@ -185,9 +185,13 @@ const ListingItem = ({ item }) => {
                   color={colors.green}
                   style={{ marginTop: "20px", marginBottom: "20px" }}
                 >
-                  This apartment is now yours! Access it with this keycode:{" "}
-                  {/* {KEYCODE_DUMMY} */}
+                  This apartment is now yours!
+                  {/* Access it with this keycode:{" "}
+                  {KEYCODE_DUMMY} */}
                 </Text>
+                <Link style={{ marginTop: "20px" }} to="/tenant">
+                  Refresh
+                </Link>
               </>
             )}
             {unitStatus === ERROR && (
@@ -198,6 +202,9 @@ const ListingItem = ({ item }) => {
                 >
                   {mmError || "Error encountered!"}
                 </Text>
+                <Link style={{ marginTop: "20px" }} to="/tenant">
+                  Refresh
+                </Link>
               </>
             )}
           </div>
