@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "../styling/Cards.css";
+import "../styling/UnitCard.css";
 import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
 import { colors } from "../theme";
@@ -72,23 +73,83 @@ const ListingItem = ({ item }) => {
     landlord,
   } = item;
   return (
-    <StyledItem>
-      {/* <img className="cards__unit__img" src="/images/apts/apt1.jpeg" /> */}
-      <StyledItemTextContainer>
-        {/* <Text center>{unitNumber}</Text> */}
-        <Text center>{unitAddress}</Text>
-        {/* <Text center bold color={colors.green}>
-          {rent} ETH/mo
-        </Text> */}
+    //     <div className="cards__wrapper">
+    //       <ul className="cards__units">
+    //         {/* {listings.map((unit, index) => (
+    //           <TenantCard
+    //             key={unit.unitNumber}
+    //             index={index}
+    //             src="/images/apts/apt1.jpeg"
+    //             unit={unit}
+    //             // toggleEditing={() => this.toggleUnitEditing(index)}
+    //             // onChange={this.handleUnitUpdate}
+    //             // onDelete={() => this.onDelete(index)}
+    //           />
+    //         ))} */}
+    //       </ul>
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="card">
+      <h1>Check out these EPIC Rentals!</h1>
+      <div className="cards__container">
+        <div className="cards__wrapper">
+          <ul className="cards__units">
+            <li className="cards__unit">
+              <div className="cards__unit__link">
+                <figure
+                  className="cards__unit__pic-wrap"
+                  data-category="Luxury"
+                >
+                  <img
+                    className="cards__unit__img"
+                    src="/images/apts/apt1.jpeg"
+                  />
+                </figure>
 
-        {/* {item.state === 0 && (
-          <Text center>Tenant: {shortenAddress(item.tenant)}</Text>
-        )}
-        {item.state === 1 && item.tenant && (
-          <Text center>Tenant: {shortenAddress(item.tenant)}</Text>
-        )} */}
-      </StyledItemTextContainer>
-    </StyledItem>
+                <div className="cards__unit__info">
+                  <div className="row justify-content-center">
+                    <h5 className="cards__item__text">
+                      {unitNumber.toNumber()}
+                    </h5>
+                    <h5 className="cards__item__text">{unitAddress}</h5>
+                    <h5 className="cards__item__text">
+                      {rent.toNumber()} ETH/mo
+                    </h5>
+                    <h5 className="cards__item__text">
+                      {deposit.toNumber()} ETH/mo
+                    </h5>
+                    <h5 className="cards__item__text">
+                      {term.toNumber()} ETH/mo
+                    </h5>
+                    <h5 className="cards__item__text">{startDate}</h5>
+
+                    {item.state === 0 && (
+                      <h5 className="cards__item__text">Status: Available</h5>
+                    )}
+                    {item.state === 1 && item.tenant && (
+                      <h5 className="cards__item__text">
+                        Tenant: {shortenAddress(item.tenant)}
+                      </h5>
+                    )}
+
+                    <div>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        //   onClick={onRent}
+                      >
+                        Rent
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -152,24 +213,6 @@ const Listings = () => {
     // <div className="cards">
     //   <div className="cards__container">
     //     <h1>Check out these EPIC Rentals</h1>
-
-    //     <div className="cards__wrapper">
-    //       <ul className="cards__units">
-    //         {/* {listings.map((unit, index) => (
-    //           <TenantCard
-    //             key={unit.unitNumber}
-    //             index={index}
-    //             src="/images/apts/apt1.jpeg"
-    //             unit={unit}
-    //             // toggleEditing={() => this.toggleUnitEditing(index)}
-    //             // onChange={this.handleUnitUpdate}
-    //             // onDelete={() => this.onDelete(index)}
-    //           />
-    //         ))} */}
-    //       </ul>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
