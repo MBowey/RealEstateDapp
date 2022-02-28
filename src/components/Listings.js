@@ -91,44 +91,36 @@ const ListingItem = ({ item }) => {
         </figure>
 
         <div className="cards__item__info">
-          <div className="row justify-content-center">
-            <h5 className="cards__item__text">
-              Unit Number: {unitNumber.toNumber()}
-            </h5>
-            <h5 className="cards__item__text"> Unit Address: {unitAddress}</h5>
-            <h5 className="cards__item__text">
-              {" "}
-              Rent: {rent.toNumber()} ETH/mo
-            </h5>
-            <h5 className="cards__item__text">
-              {" "}
-              Deposit: {deposit.toNumber()} ETH/mo
-            </h5>
-            <h5 className="cards__item__text">
-              {" "}
-              Lease Term: {term.toNumber()} ETH/mo
-            </h5>
-            <h5 className="cards__item__text">Start Date: {startDate}</h5>
-
-            {item.state === 0 && (
-              <h5 className="cards__item__text">Status: Available</h5>
-            )}
-            {item.state === 1 && item.tenant && (
-              <h5 className="cards__item__text">
-                Tenant: {shortenAddress(item.tenant)}
-              </h5>
-            )}
-
-            <div>
-              <button
-                type="button"
-                className="btn btn-primary"
-                //   onClick={onRent}
-              >
-                Rent
-              </button>
-            </div>
+          <div className="cards__item__text">
+            <h5>Unit Number: </h5>
+            <h5>Unit Addres: </h5>
+            <h5>Rent: </h5>
+            <h5>Deposit: </h5>
+            <h5>Lease Term: </h5>
+            <h5>Start Date: </h5>
+            <h5>Status: </h5>
+            <h5>Tenant: </h5>
           </div>
+          <div className="cards__item__values">
+            <h5>{unitNumber.toNumber()}</h5>
+            <h5> {unitAddress}</h5>
+            <h5>{rent.toNumber()} ETH/mo</h5>
+            <h5>{deposit.toNumber()} ETH/mo</h5>
+            <h5>{term.toNumber()} Months</h5>
+            <h5> {startDate}</h5>
+            {item.state === 0 && <h5> Available</h5>}
+            {item.state === 1 && item.tenant && <h5>Occupied</h5>}
+            <h5>{shortenAddress(item.tenant)}</h5>
+          </div>
+        </div>
+        <div className="btn-container">
+          <button
+            type="button"
+            className="btn-custom"
+            //   onClick={onRent}
+          >
+            RENT UNIT
+          </button>
         </div>
       </Link>{" "}
     </li>
