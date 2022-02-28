@@ -151,55 +151,57 @@ const ListingItem = ({ item }) => {
             <h5>{shortenAddress(item.tenant)}</h5>
           </div>
         </div>
-        <div className="btn-container">
-          {unitStatus === LOADING ||
-            (unitStatus === WAITING && (
+        {item.state === 0 && (
+          <div className="btn-container">
+            {unitStatus === LOADING ||
+              (unitStatus === WAITING && (
+                <>
+                  <Spinner
+                    animation="border"
+                    size="sm"
+                    style={{
+                      color: colors.green,
+                      marginTop: "20px",
+                      marginBottom: "20px",
+                    }}
+                  />
+                  {unitStatus === WAITING && (
+                    <Text>
+                      The apartment is yours after {CONFIRMATION_COUNT} block
+                      confirmations.
+                    </Text>
+                  )}
+                </>
+              ))}
+            {unitStatus === READY && (
+              <button type="button" className="btn-custom" onClick={onBuyClick}>
+                RENT UNIT
+              </button>
+            )}
+            {unitStatus === LEASED && !!txHash && (
               <>
-                <Spinner
-                  animation="border"
-                  size="sm"
-                  style={{
-                    color: colors.green,
-                    marginTop: "20px",
-                    marginBottom: "20px",
-                  }}
-                />
-                {unitStatus === WAITING && (
-                  <Text>
-                    The apartment is yours after {CONFIRMATION_COUNT} block
-                    confirmations.
-                  </Text>
-                )}
+                <Text
+                  t3
+                  color={colors.green}
+                  style={{ marginTop: "20px", marginBottom: "20px" }}
+                >
+                  This apartment is now yours! Access it with this keycode:{" "}
+                  {/* {KEYCODE_DUMMY} */}
+                </Text>
               </>
-            ))}
-          {unitStatus === READY && (
-            <button type="button" className="btn-custom" onClick={onBuyClick}>
-              RENT UNIT
-            </button>
-          )}
-          {unitStatus === LEASED && !!txHash && (
-            <>
-              <Text
-                t3
-                color={colors.green}
-                style={{ marginTop: "20px", marginBottom: "20px" }}
-              >
-                This apartment is now yours! Access it with this keycode:{" "}
-                {/* {KEYCODE_DUMMY} */}
-              </Text>
-            </>
-          )}
-          {unitStatus === ERROR && (
-            <>
-              <Text
-                style={{ marginTop: "20px", marginBottom: "20px" }}
-                color={colors.red}
-              >
-                {mmError || "Error encountered!"}
-              </Text>
-            </>
-          )}
-        </div>
+            )}
+            {unitStatus === ERROR && (
+              <>
+                <Text
+                  style={{ marginTop: "20px", marginBottom: "20px" }}
+                  color={colors.red}
+                >
+                  {mmError || "Error encountered!"}
+                </Text>
+              </>
+            )}
+          </div>
+        )}
       </div>{" "}
     </li>
   );
