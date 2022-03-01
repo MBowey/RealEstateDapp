@@ -57,8 +57,6 @@ const ListingItem = ({ item }) => {
     landlord,
   } = item;
 
-  const { TENANT, LANDLORD } = pageState;
-
   return (
     <li className="cards__item">
       <div className="cards__item__link">

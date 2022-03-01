@@ -14,7 +14,7 @@ const unitState = {
   LOADING: "LOADING",
   WAITING: "WAITING_CONFIRMATIONS",
   READY: "READY",
-  LEASED: "LEASED",
+  TERMINATED: "TERMINATED",
   ERROR: "ERROR",
 };
 
@@ -38,7 +38,7 @@ const TerminateButton = ({ unit, onRent }) => {
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await transaction.wait(confirmations);
       setTxHash(transaction.hash);
-      setUnitStatus(unitState.LEASED);
+      setUnitStatus(unitState.TERMINATED);
     } catch (e) {
       setUnitStatus(unitState.ERROR);
       if (e.code && typeof e.code === "number") {
@@ -47,7 +47,7 @@ const TerminateButton = ({ unit, onRent }) => {
     }
   };
 
-  const { LOADING, WAITING, READY, LEASED, ERROR } = unitState;
+  const { LOADING, WAITING, READY, TERMINATED, ERROR } = unitState;
 
   return (
     <div className="btn-container">
@@ -76,7 +76,7 @@ const TerminateButton = ({ unit, onRent }) => {
           TERMINATE LEASE
         </button>
       )}
-      {unitStatus === LEASED && !!txHash && (
+      {unitStatus === TERMINATED && !!txHash && (
         <>
           <Text
             t3
