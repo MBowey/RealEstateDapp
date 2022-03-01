@@ -32,9 +32,8 @@ const LandlordButton = ({ unit, onRent }) => {
     setUnitStatus(unitState.LOADING);
     try {
       setUnitStatus(unitState.WAITING);
-      const transaction = await contract.rentUnit(unitNumber, {
+      const transaction = await contract.terminateLease(unitNumber, {
         from: account,
-        value: deposit,
       });
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await transaction.wait(confirmations);
@@ -66,7 +65,7 @@ const LandlordButton = ({ unit, onRent }) => {
             />
             {unitStatus === WAITING && (
               <Text>
-                The apartment is yours after {CONFIRMATION_COUNT} block
+                Lease will be terminated in {CONFIRMATION_COUNT} block
                 confirmations.
               </Text>
             )}
@@ -74,7 +73,7 @@ const LandlordButton = ({ unit, onRent }) => {
         ))}
       {unitStatus === READY && (
         <button type="button" className="btn-custom" onClick={onTerminate}>
-          RENT UNIT
+          TERMINATE LEASE
         </button>
       )}
       {unitStatus === LEASED && !!txHash && (
@@ -84,11 +83,9 @@ const LandlordButton = ({ unit, onRent }) => {
             color={colors.green}
             style={{ marginTop: "20px", marginBottom: "20px" }}
           >
-            This apartment is now yours!
-            {/* Access it with this keycode:{" "}
-                    {KEYCODE_DUMMY} */}
+            Lease has been terminated!!!
           </Text>
-          <Link style={{ marginTop: "20px" }} to="/tenant">
+          <Link style={{ marginTop: "20px" }} to="/landlord">
             Refresh
           </Link>
         </>
@@ -101,7 +98,7 @@ const LandlordButton = ({ unit, onRent }) => {
           >
             {mmError || "Error encountered!"}
           </Text>
-          <Link style={{ marginTop: "20px" }} to="/tenant">
+          <Link style={{ marginTop: "20px" }} to="/landlord">
             Refresh
           </Link>
         </>

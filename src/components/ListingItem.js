@@ -6,10 +6,10 @@ import { shortenAddress } from "../utils/shortenAddress";
 import "../styling/Cards.css";
 import "../styling/UnitCard.css";
 
-import apt1 from "../images/apts/apt1.jpeg";
-import apt2 from "../images/apts/apt1.jpeg";
+import apt1 from "../images/apts/apt4.jpeg";
+import apt2 from "../images/apts/apt3.jpeg";
 import apt3 from "../images/apts/apt2.jpeg";
-import apt4 from "../images/apts/apt2.jpeg";
+import apt4 from "../images/apts/apt1.jpeg";
 
 const image = [apt1, apt2, apt3, apt4];
 
@@ -82,8 +82,8 @@ const ListingItem = ({ item }) => {
             <h5>{shortenAddress(item.tenant)}</h5>
           </div>
         </div>
-              {item.state === 0 && <ListingButtons />}
-              {item.state === 1 && <ListingButtons />}
+        {item.state === 0 && <ListingButtons />}
+        {item.state === 1 && <ListingButtons />}
       </div>{" "}
     </li>
   );

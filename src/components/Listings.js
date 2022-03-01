@@ -68,7 +68,7 @@ const Listings = () => {
     if (active) {
       getUnits(contract);
     }
-  }, [active]);
+  }, [active, setListings]);
 
   if (!active) {
     return null;
