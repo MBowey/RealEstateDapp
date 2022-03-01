@@ -92,15 +92,19 @@ const TerminateButton = ({ unit, onRent }) => {
       )}
       {unitStatus === ERROR && (
         <>
-          <Text
-            style={{ marginTop: "20px", marginBottom: "20px" }}
-            color={colors.red}
-          >
-            {mmError || "Error encountered!"}
+          <Text style={{}} color={colors.red}>
+            {mmError || "Error Encountered!"}
           </Text>
-          <Link style={{ marginTop: "20px" }} to="/landlord">
-            Refresh
-          </Link>
+          <button
+            style={{
+              marginLeft: "20px",
+            }}
+            type="button"
+            className="btn-custom"
+            onClick={() => setUnitStatus(unitState.READY)}
+          >
+            Back
+          </button>
         </>
       )}
     </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import TenantButton from "./TenantButton";
+import RentUnitButton from "./RentUnitButton";
 // import EditLeaseButton from "./EditLeaseButton";
 import TerminateButton from "./TerminateButton";
 import { shortenAddress } from "../utils/shortenAddress";
@@ -24,7 +24,7 @@ const ListingButtons = () => {
   const { pathname } = useLocation();
 
   if (pathname === "/tenant") {
-    return <TenantButton />;
+    return <RentUnitButton />;
   }
 
   //   if (pathname === "/landlord") {
@@ -54,7 +54,6 @@ const ListingItem = ({ item }) => {
     startDate,
     tenant,
     state,
-    landlord,
   } = item;
 
   return (

@@ -20,7 +20,7 @@ const unitState = {
 
 const CONFIRMATION_COUNT = 2;
 
-const TenantButton = ({ unit, onRent }) => {
+const RentUnitButton = ({ item }) => {
   const [unitStatus, setUnitStatus] = useState(unitState.READY);
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
@@ -88,26 +88,30 @@ const TenantButton = ({ unit, onRent }) => {
             {/* Access it with this keycode:{" "}
                     {KEYCODE_DUMMY} */}
           </Text>
-          <Link style={{ marginTop: "20px" }} to="/tenant">
+          <Link style={{ marginLeft: "20px" }} to="/tenant">
             Refresh
           </Link>
         </>
       )}
       {unitStatus === ERROR && (
         <>
-          <Text
-            style={{ marginTop: "20px", marginBottom: "20px" }}
-            color={colors.red}
-          >
-            {mmError || "Error encountered!"}
+          <Text style={{}} color={colors.red}>
+            {mmError || "Error Encountered!"}
           </Text>
-          <Link style={{ marginTop: "20px" }} to="/tenant">
-            Refresh
-          </Link>
+          <button
+            style={{
+              marginLeft: "20px",
+            }}
+            type="button"
+            className="btn-custom"
+            onClick={() => setUnitStatus(unitState.READY)}
+          >
+            Back
+          </button>
         </>
       )}
     </div>
   );
 };
 
-export default TenantButton;
+export default RentUnitButton;
