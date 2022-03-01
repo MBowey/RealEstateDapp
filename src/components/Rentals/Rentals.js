@@ -70,7 +70,7 @@ const Rentals = () => {
   // const [listing, setListing] = useState(undefined);
   const { active, account, chainId } = useWeb3React();
   const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5"; //"0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
-  const contract = useContract(rentalsAddress, RentalsABI.abi);
+  const contract = new useContract(rentalsAddress, RentalsABI.abi);
 
   const handleInputChange = (event) => {
     setUnit({ ...unit, [event.target.name]: event.target.value });
