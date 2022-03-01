@@ -20,7 +20,7 @@ const unitState = {
 
 const CONFIRMATION_COUNT = 2;
 
-const LandlordButton = ({ unit, onRent }) => {
+const EditLeaseButton = ({ unit, onRent }) => {
   const [unitStatus, setUnitStatus] = useState(unitState.READY);
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
@@ -73,7 +73,7 @@ const LandlordButton = ({ unit, onRent }) => {
         ))}
       {unitStatus === READY && (
         <button type="button" className="btn-custom" onClick={onTerminate}>
-          TERMINATE LEASE
+          EDIT LEASE
         </button>
       )}
       {unitStatus === LEASED && !!txHash && (
@@ -107,4 +107,4 @@ const LandlordButton = ({ unit, onRent }) => {
   );
 };
 
-export default LandlordButton;
+export default EditLeaseButton;
