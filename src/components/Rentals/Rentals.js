@@ -17,6 +17,7 @@ import "../../App.css";
 import "../../styling/Units.css";
 import "../../styling/AddUnit.css";
 import { useContract } from "../../hooks/useContract";
+import Listings from "../Listings";
 
 import RentalsABI from "../../contracts/Rentals.json";
 
@@ -273,25 +274,6 @@ const Rentals = () => {
               </Text>
             </>
           )}
-        </div>
-      </div>
-
-      <div className="cards__container">
-        <h1>Rentals</h1>
-        <div className="cards__wrapper">
-          <ul className="cards__units">
-            {this.state.units.map((unit, index) => (
-              <RentalCard
-                key={unit.id}
-                index={index}
-                src="/images/apts/apt1.jpeg"
-                unit={unit}
-                toggleEditing={() => this.toggleUnitEditing(index)}
-                onChange={this.handleUnitUpdate}
-                onDelete={() => this.onDelete(index)}
-              />
-            ))}
-          </ul>
         </div>
       </div>
 
