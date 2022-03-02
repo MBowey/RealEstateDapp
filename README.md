@@ -1,5 +1,7 @@
 # Real Estate Landlord/Tenant Lease Agreement
 
+![Real Estate Image](/src/images/banners/hero-image-inner.jpeg)
+
 ## Overview
 
 Real Estate Dapp is a decentralized marketplace for landlords to be able to lease individual units to tenants. Landlords are able to add units to the marketplace and list them for rent with the desired lease terms (rent, deposit,term, etc). Tenants can search properties for availability by unit number and secure a unit for rent by depositing 2 months rent (first and last month).
