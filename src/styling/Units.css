@@ -43,6 +43,20 @@
   margin-bottom: 25px;
 }
 
+.custom-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #242424;
+  border-color: #fff;
+  border-width: 5px;
+  border-radius: 10px;
+  padding: 25px;
+  width: 750px;
+  height: 387.97px;
+}
 /* .button__error {
   
 } */

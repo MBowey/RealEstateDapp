@@ -16,6 +16,8 @@ import useTransaction from "../../hooks/useTransaction";
 import "../../App.css";
 import "../../styling/Units.css";
 import "../../styling/AddUnit.css";
+import "../../styling/button.css";
+import { Button } from "../button";
 import { useContract } from "../../hooks/useContract";
 import Listings from "../Listings";
 
@@ -267,25 +269,45 @@ const Rentals = () => {
             </form>
           )}
           {status === SOLD && !!txHash && (
-            <>
+            <div className="custom-box">
               <Text
                 t3
-                color={colors.green}
+                color={colors.white}
                 style={{ marginTop: "20px", marginBottom: "20px" }}
               >
                 This unit has been listed!!!
               </Text>
-            </>
+              <Button
+                style={{
+                  marginLeft: "20px",
+                }}
+                type="button"
+                buttonStyle="btn--outline"
+                onClick={() => setStatus(DetailsState.READY)}
+              >
+                BACK
+              </Button>
+            </div>
           )}
           {status === ERROR && (
-            <>
+            <div className="custom-box">
               <Text
                 style={{ marginTop: "20px", marginBottom: "20px" }}
                 color={colors.red}
               >
                 {mmError || "Error encountered!"}
               </Text>
-            </>
+              <Button
+                style={{
+                  marginLeft: "20px",
+                }}
+                type="button"
+                buttonStyle="btn--outline"
+                onClick={() => setStatus(DetailsState.READY)}
+              >
+                BACK
+              </Button>
+            </div>
           )}
         </div>
       </div>
