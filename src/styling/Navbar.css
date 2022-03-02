@@ -84,6 +84,14 @@
   max-width: 1500px;
 }
 
+.nav-connect-address {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  max-width: 1500px;
+}
+
 @media screen and (max-width: 1200px) {
   .NavbarItems {
     position: relative;

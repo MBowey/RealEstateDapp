@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { useAppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
-import Text from "./Text";
-import { StyledHeaderBox } from "./StyledHelpers";
 import { injected } from "../connectors";
 import { shortenAddress } from "../utils/shortenAddress";
-import { useAppContext } from "../AppContext";
-import { Button } from "./button";
+import { Button } from "../components/button";
+import { StyledHeaderBox } from "./StyledHelpers";
+import Text from "./Text";
+import styled from "styled-components";
+import "../styling/button.css";
+import "../styling/Navbar.css";
 
-const ConnectBtn = styled.button`
-  background-color: transparent;
-  color: #fff;
-  padding: 8px 20px;
-  border: 1px solid var(--primary);
-  transition: all 0.3s ease-out;
-  margin-left: 10px;
-  font-size: 1rem;
-  &:hover {
-    background-color: #fff;
-    color: #242424;
-    border-radius: 0;
-  }
-`;
+// const ConnectBtn = styled.button`
+//   background-color: transparent;
+//   color: #fff;
+//   padding: 8px 20px;
+//   border: 1px solid var(--primary);
+//   transition: all 0.3s ease-out;
+//   margin-left: 10px;
+//   font-size: 1rem;
+//   &:hover {
+//     background-color: #fff;
+//     color: #242424;
+//     border-radius: 0;
+//   }
+// `;
 
 const pageState = {
   LOADING: "LOADING",
@@ -53,7 +55,7 @@ const MetamaskConnectButton = () => {
 
   if (status === pageState.LOADING) {
     return (
-      <ConnectBtn
+      <Button
         buttonStyle="btn--outline"
         onClick={() => {
           if (!window.ethereum) {
@@ -70,13 +72,13 @@ const MetamaskConnectButton = () => {
         }}
       >
         CONNECT
-      </ConnectBtn>
+      </Button>
     );
   }
 
   if (status === pageState.READY && !active) {
     return (
-      <ConnectBtn
+      <Button
         buttonStyle="btn--outline"
         onClick={() => {
           if (!window.ethereum) {
@@ -93,22 +95,17 @@ const MetamaskConnectButton = () => {
         }}
       >
         CONNECT
-      </ConnectBtn>
+      </Button>
     );
   }
 
   return (
-    <StyledHeaderBox>
-      <Text uppercase color="white">
-        {shortenAddress(account)}
-      </Text>
-      <ConnectBtn
-        buttonStyle="btn--outline"
-        onClick={() => onLogOut(deactivate, () => navigate("/"))}
-      >
-        LOG OUT
-      </ConnectBtn>
-    </StyledHeaderBox>
+    <Button
+      buttonStyle="btn--outline"
+      onClick={() => onLogOut(deactivate, () => navigate("/"))}
+    >
+      LOG OUT
+    </Button>
   );
 };
 

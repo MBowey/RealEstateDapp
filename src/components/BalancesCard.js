@@ -4,6 +4,7 @@ import Text from "./Text";
 import { StyledHeaderBox } from "./StyledHelpers";
 import { colors } from "../theme";
 import useEth from "../hooks/useEth";
+import { shortenAddress } from "../utils/shortenAddress";
 
 const BalanceCard = () => {
   const { active, account } = useWeb3React();
@@ -21,6 +22,9 @@ const BalanceCard = () => {
 
   return (
     <StyledHeaderBox>
+      <Text uppercase color="white">
+        {shortenAddress(account)}
+      </Text>
       <Text block color={colors.white}>
         ETH balance: {ethBalance}
       </Text>
