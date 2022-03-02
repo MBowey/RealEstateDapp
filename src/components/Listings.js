@@ -24,8 +24,12 @@ const listingState = {
 const FilteredListing = ({ listings, state }) => {
   const filtered = listings.filter((l) => l.state === state);
 
-  if (filtered.length < 1) {
-    return <div className="cards__nothing">Nothing Rented Yet!! 🤷</div>;
+  if (filtered.length < 1 && state === 0) {
+    return <div className="cards__nothing">No units available for rent!!!</div>;
+  }
+
+  if (filtered.length < 1 && state === 1) {
+    return <div className="cards__nothing">No units have been rented!!!</div>;
   }
 
   return (
@@ -67,7 +71,7 @@ const Listings = () => {
     if (active) {
       getUnits(contract);
     }
-  }, [active, setListings]);
+  }, [active, listings, setListings]);
 
   if (!active) {
     return null;

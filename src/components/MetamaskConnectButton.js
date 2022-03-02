@@ -27,6 +27,7 @@ const ConnectBtn = styled.button`
 const pageState = {
   LOADING: "LOADING",
   READY: "READY",
+  ERROR: "ERROR",
 };
 
 const onLogOut = (deactivate, cb) => {
