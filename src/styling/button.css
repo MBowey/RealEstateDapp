@@ -23,7 +23,6 @@
   padding: 8px 20px;
   border: 1px solid var(--primary);
   transition: all 0.3s ease-out;
-  margin-left: 15px;
 }
 
 .btn--medium {
