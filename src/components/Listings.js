@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, createContext } from "react";
 import ListingItem from "./ListingItem";
 import { Link } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import { useContract } from "../hooks/useContract";
 import { BigNumber } from "ethers";
 import { shortenAddress } from "../utils/shortenAddress";
+import { UnitContext } from "../hooks/useUnitInfo";
 
 import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
@@ -31,7 +32,6 @@ const FilteredListing = ({ listings, state }) => {
     <>
       {filtered.map((l) => {
         const id = BigNumber.from(l.unitNumber).toNumber();
-
         return <ListingItem key={id} item={l} />;
       })}
     </>
@@ -56,7 +56,6 @@ const Listings = () => {
       }
       const arr = await Promise.all(ids.map((id) => contract.units(id)));
       setListings(arr);
-      console.log(arr);
       setStatus(listingState.READY);
     } catch (error) {
       console.log("error:", error);

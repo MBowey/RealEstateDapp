@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../styling/Cards.css";
 import "../styling/UnitCard.css";
@@ -7,6 +7,7 @@ import { colors } from "../theme";
 import Text from "./Text";
 import { useWeb3React } from "@web3-react/core";
 import { useContract } from "../hooks/useContract";
+import { UnitContext } from "../hooks/useUnitInfo";
 
 import RentalsABI from "../contracts/Rentals.json";
 
@@ -20,7 +21,9 @@ const unitState = {
 
 const CONFIRMATION_COUNT = 2;
 
-const TerminateButton = ({ unit, onRent }) => {
+const TerminateButton = () => {
+  const item = useContext(UnitContext);
+  const { unitNumber, deposit } = item;
   const [unitStatus, setUnitStatus] = useState(unitState.READY);
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
