@@ -11,8 +11,8 @@
   background: url("../images/banners/hero-image-inner.jpeg") center center/cover
     no-repeat;
   height: 65vh;
-  max-height: 600px;
-  min-height: 450px;
+  max-height: 700px;
+  min-height: 575px;
   width: 100%;
   display: flex;
   flex-flow: column;
