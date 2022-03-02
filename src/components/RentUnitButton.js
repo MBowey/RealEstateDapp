@@ -92,9 +92,16 @@ const RentUnitButton = () => {
             {/* Access it with this keycode:{" "}
                     {KEYCODE_DUMMY} */}
           </Text>
-          <Link style={{ marginLeft: "20px" }} to="/tenant">
-            Refresh
-          </Link>
+          <button
+            style={{
+              marginLeft: "20px",
+            }}
+            type="button"
+            className="btn-custom"
+            onClick={() => setUnitStatus(unitState.READY)}
+          >
+            Back
+          </button>
         </>
       )}
       {unitStatus === ERROR && (

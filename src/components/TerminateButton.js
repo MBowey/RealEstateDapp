@@ -88,9 +88,16 @@ const TerminateButton = () => {
           >
             Lease has been terminated!!!
           </Text>
-          <Link style={{ marginTop: "20px" }} to="/landlord">
-            Refresh
-          </Link>
+          <button
+            style={{
+              marginLeft: "20px",
+            }}
+            type="button"
+            className="btn-custom"
+            onClick={() => setUnitStatus(unitState.READY)}
+          >
+            Back
+          </button>
         </>
       )}
       {unitStatus === ERROR && (
