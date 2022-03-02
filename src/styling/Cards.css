@@ -45,15 +45,17 @@ h2 {
 
 .cards__items {
   display: flex;
-  align-items: center;
-  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 50px;
 }
 
 .cards__item {
   display: flex;
-  flex: 1;
+  flex: 2 0 50%;
+  max-width: 500px;
   margin: 0 1rem;
+  margin-bottom: 50px;
   border-radius: 10px;
 }
 
