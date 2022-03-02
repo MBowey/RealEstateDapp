@@ -22,14 +22,18 @@ const BalanceCard = () => {
 
   return (
     <div className="balance-container">
-      <Text color="white">Address: </Text>
-      <Text color="white">{shortenAddress(account)}</Text>
-      <Text block color="white">
-        ETH Balance:
-      </Text>
-      <Text color="white">
-        {ethBalance} <i className="fab fa-ethereum"></i>{" "}
-      </Text>
+      <div className="balance-column1">
+        <Text color="white">Address: </Text>
+        <Text block color="white">
+          ETH Balance:
+        </Text>
+      </div>
+      <div className="balance-column2">
+        <Text color="white">{shortenAddress(account)}</Text>
+        <Text color="white">
+          {ethBalance} <i className="fab fa-ethereum"></i>{" "}
+        </Text>
+      </div>
     </div>
   );
 };
