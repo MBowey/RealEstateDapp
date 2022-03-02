@@ -30,7 +30,7 @@ const DetailsState = {
   WAITING: "WAITING_CONFIRMATIONS",
   READY: "READY",
   ERROR: "ERROR",
-  SOLD: "LISTED",
+  LISTED: "LISTED",
 };
 
 const Container = styled.div`
@@ -105,11 +105,16 @@ const Rentals = () => {
         startDate: "",
       });
       const { unitAddress, rent, deposit, term, startDate } = unit;
-      const txn = await contract
-        .addUnit(unitAddress, rent, deposit, term, startDate)
-        .send({
+      const txn = await contract.addUnit(
+        unitAddress,
+        rent,
+        deposit,
+        term,
+        startDate,
+        {
           from: account,
-        });
+        }
+      );
 
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await txn.wait(confirmations);
@@ -165,7 +170,7 @@ const Rentals = () => {
     });
   };
 
-  const { LOADING, WAITING, READY, SOLD, ERROR } = DetailsState;
+  const { LOADING, WAITING, READY, LISTED, ERROR } = DetailsState;
 
   return (
     <div className="units">
@@ -174,7 +179,7 @@ const Rentals = () => {
         <div className="addunit__wrapper">
           {status === LOADING ||
             (status === WAITING && (
-              <>
+              <div className="custom-box">
                 <Spinner
                   animation="border"
                   size="sm"
@@ -185,12 +190,12 @@ const Rentals = () => {
                   }}
                 />
                 {status === WAITING && (
-                  <Text>
+                  <Text color="white" t4>
                     The unit will be listed after {CONFIRMATION_COUNT} block
                     confirmations.
                   </Text>
                 )}
-              </>
+              </div>
             ))}
           {status === READY && (
             <form className="custom-form" onSubmit={AddUnit}>
@@ -268,7 +273,7 @@ const Rentals = () => {
               </div>
             </form>
           )}
-          {status === SOLD && !!txHash && (
+          {status === LISTED && !!txHash && (
             <div className="custom-box">
               <Text
                 t3
