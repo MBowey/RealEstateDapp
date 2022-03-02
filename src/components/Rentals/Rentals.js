@@ -192,13 +192,15 @@ const Rentals = () => {
             ))}
           {status === READY && (
             <form className="custom-form" onSubmit={AddUnit}>
+              <input
+                type="text"
+                value={unit.unitNumber.unitNumber}
+                name="unitNumber"
+                autoComplete="off"
+                onChange={handleInputChange}
+                required
+              />
               <label className="custom-input">
-                <input
-                  type="text"
-                  value={unit.unitNumber.unitNumber}
-                  name="unitNumber"
-                  onChange={handleInputChange}
-                />
                 <span className="placeholder"> Unit Number </span>
               </label>
               <label className="custom-input">
@@ -206,6 +208,7 @@ const Rentals = () => {
                   type="text"
                   value={unit.unitAddress.unitAddress}
                   name="unitAddress"
+                  autoComplete="off"
                   onChange={handleInputChange}
                 />
                 <span className="placeholder"> Address </span>
@@ -215,6 +218,7 @@ const Rentals = () => {
                   type="text"
                   value={unit.rent.rent}
                   name="rent"
+                  autoComplete="off"
                   onChange={handleInputChange}
                 />
                 <span className="placeholder"> Rent </span>
@@ -224,6 +228,7 @@ const Rentals = () => {
                   type="text"
                   value={unit.deposit.deposit}
                   name="deposit"
+                  autoComplete="off"
                   onChange={handleInputChange}
                 />
                 <span className="placeholder"> Deposit </span>
@@ -233,6 +238,7 @@ const Rentals = () => {
                   type="text"
                   value={unit.term.term}
                   name="term"
+                  autoComplete="off"
                   onChange={handleInputChange}
                 />
                 <span className="placeholder"> Term </span>
@@ -242,6 +248,7 @@ const Rentals = () => {
                   type="text"
                   value={unit.startDate.startDate}
                   name="startDate"
+                  autoComplete="off"
                   onChange={handleInputChange}
                 />
                 <span className="placeholder"> Start Date </span>
