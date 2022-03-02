@@ -48,7 +48,7 @@ const contractAddress = "0x00000000000000000000000000000000000"
 const contractABI = []
 ```
 
-**Step 6:** Run User Interface (http://localhost:8080`)
+**Step 6:** Run User Interface (http://localhost:3000`)
 
 ```bash
 yarn start
