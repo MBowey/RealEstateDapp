@@ -1,4 +1,4 @@
-# Real Estate Landlord/Tenant Lease Agreement
+# Real Estate Dapp
 
 ![Real Estate Image](/src/images/banners/hero-image-inner.jpeg)
 
