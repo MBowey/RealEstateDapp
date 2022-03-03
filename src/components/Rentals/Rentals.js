@@ -82,46 +82,6 @@ const Rentals = () => {
     }
   };
 
-  const toggleUnitEditing = (index) => {
-    this.setState({
-      units: this.state.units.map((unit, i) => {
-        if (i === index) {
-          return {
-            ...unit,
-            isEditing: !unit.isEditing,
-          };
-        }
-        return unit;
-      }),
-    });
-  };
-
-  const handleUnitUpdate = (event, index) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      units: this.state.units.map((unit, unitIndex) => {
-        if (unitIndex === index) {
-          return {
-            ...unit,
-            [name]: value,
-          };
-        }
-        return unit;
-      }),
-    });
-  };
-
-  const onDelete = (index) => {
-    this.setState({
-      units: [
-        ...this.state.units.slice(0, index),
-        ...this.state.units.slice(index + 1),
-      ],
-    });
-  };
-
   const { LOADING, WAITING, READY, LISTED, ERROR } = DetailsState;
 
   return (
