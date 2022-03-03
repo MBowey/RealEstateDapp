@@ -1,21 +1,19 @@
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import RentUnitButton from "./RentUnitButton";
-// import EditLeaseButton from "./EditLeaseButton";
 import TerminateButton from "./TerminateButton";
+import { shortenAddress } from "../../utils/shortenAddress";
+import "../../styling/Cards.css";
+import "../../styling/UnitCard.css";
 
-import { shortenAddress } from "../utils/shortenAddress";
-import "../styling/Cards.css";
-import "../styling/UnitCard.css";
+import apt1 from "../../images/apts/apt3.jpeg";
+import apt2 from "../../images/apts/apt4.jpeg";
+import apt3 from "../../images/apts/apt1.jpeg";
+import apt4 from "../../images/apts/apt2.jpeg";
+import apt5 from "../../images/apts/apt5.jpeg";
+import apt6 from "../../images/apts/apt6.jpeg";
 
-import apt1 from "../images/apts/apt3.jpeg";
-import apt2 from "../images/apts/apt4.jpeg";
-import apt3 from "../images/apts/apt1.jpeg";
-import apt4 from "../images/apts/apt2.jpeg";
-import apt5 from "../images/apts/apt5.jpeg";
-import apt6 from "../images/apts/apt6.jpeg";
-
-import { UnitContext } from "../hooks/useUnitInfo";
+import { UnitContext } from "../../hooks/useUnitInfo";
 
 const image = [apt1, apt2, apt3, apt4, apt5, apt6];
 

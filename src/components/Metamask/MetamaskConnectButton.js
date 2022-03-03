@@ -1,30 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useAppContext } from "../AppContext";
+import { useAppContext } from "../../AppContext";
 import { useNavigate } from "react-router-dom";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
-import { injected } from "../connectors";
-import { shortenAddress } from "../utils/shortenAddress";
-import { Button } from "../components/button";
-import { StyledHeaderBox } from "./StyledHelpers";
-import Text from "./Text";
-import styled from "styled-components";
-import "../styling/button.css";
-import "../styling/Navbar.css";
-
-// const ConnectBtn = styled.button`
-//   background-color: transparent;
-//   color: #fff;
-//   padding: 8px 20px;
-//   border: 1px solid var(--primary);
-//   transition: all 0.3s ease-out;
-//   margin-left: 10px;
-//   font-size: 1rem;
-//   &:hover {
-//     background-color: #fff;
-//     color: #242424;
-//     border-radius: 0;
-//   }
-// `;
+import { injected } from "../../connectors";
+import { Button } from "../button";
+import "../../styling/button.css";
+import "../../styling/Navbar.css";
 
 const pageState = {
   LOADING: "LOADING",

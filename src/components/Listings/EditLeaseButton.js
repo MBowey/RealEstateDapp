@@ -1,34 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import "../styling/Cards.css";
 import "../styling/UnitCard.css";
 import { Spinner } from "react-bootstrap";
-import { colors } from "../theme";
-import Text from "./Text";
+import { colors } from "../../theme";
+import Text from "../Text";
 import { useWeb3React } from "@web3-react/core";
-import { useContract } from "../hooks/useContract";
-import { UnitContext } from "../hooks/useUnitInfo";
+import { useContract } from "../../hooks/useContract";
 
-import RentalsABI from "../contracts/Rentals.json";
+import RentalsABI from "../../contracts/Rentals.json";
 
 const unitState = {
   LOADING: "LOADING",
   WAITING: "WAITING_CONFIRMATIONS",
   READY: "READY",
-  TERMINATED: "TERMINATED",
+  LEASED: "LEASED",
   ERROR: "ERROR",
 };
 
 const CONFIRMATION_COUNT = 2;
 
-const TerminateButton = () => {
-  const item = useContext(UnitContext);
-  const { unitNumber, deposit } = item;
+const EditLeaseButton = ({ unit, onRent }) => {
   const [unitStatus, setUnitStatus] = useState(unitState.READY);
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
   const { active, account, chainId } = useWeb3React();
-  const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
+  const rentalsAddress = RentalsABI.networks[1337].address;
   const contract = useContract(rentalsAddress, RentalsABI.abi);
 
   const onTerminate = async (event) => {
@@ -41,7 +38,7 @@ const TerminateButton = () => {
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await transaction.wait(confirmations);
       setTxHash(transaction.hash);
-      setUnitStatus(unitState.TERMINATED);
+      setUnitStatus(unitState.LEASED);
     } catch (e) {
       setUnitStatus(unitState.ERROR);
       if (e.code && typeof e.code === "number") {
@@ -50,7 +47,7 @@ const TerminateButton = () => {
     }
   };
 
-  const { LOADING, WAITING, READY, TERMINATED, ERROR } = unitState;
+  const { LOADING, WAITING, READY, LEASED, ERROR } = unitState;
 
   return (
     <div className="btn-container">
@@ -76,10 +73,10 @@ const TerminateButton = () => {
         ))}
       {unitStatus === READY && (
         <button type="button" className="btn-custom" onClick={onTerminate}>
-          TERMINATE LEASE
+          EDIT LEASE
         </button>
       )}
-      {unitStatus === TERMINATED && !!txHash && (
+      {unitStatus === LEASED && !!txHash && (
         <>
           <Text
             t3
@@ -88,37 +85,26 @@ const TerminateButton = () => {
           >
             Lease has been terminated!!!
           </Text>
-          <button
-            style={{
-              marginLeft: "20px",
-            }}
-            type="button"
-            className="btn-custom"
-            onClick={() => setUnitStatus(unitState.READY)}
-          >
-            Back
-          </button>
+          <Link style={{ marginTop: "20px" }} to="/landlord">
+            Refresh
+          </Link>
         </>
       )}
       {unitStatus === ERROR && (
         <>
-          <Text style={{}} color={colors.red}>
-            {mmError || "Error Encountered!"}
-          </Text>
-          <button
-            style={{
-              marginLeft: "20px",
-            }}
-            type="button"
-            className="btn-custom"
-            onClick={() => setUnitStatus(unitState.READY)}
+          <Text
+            style={{ marginTop: "20px", marginBottom: "20px" }}
+            color={colors.red}
           >
-            Back
-          </button>
+            {mmError || "Error encountered!"}
+          </Text>
+          <Link style={{ marginTop: "20px" }} to="/landlord">
+            Refresh
+          </Link>
         </>
       )}
     </div>
   );
 };
 
-export default TerminateButton;
+export default EditLeaseButton;

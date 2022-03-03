@@ -71,24 +71,11 @@ const Rentals = () => {
   const [txHash, setTxHash] = useState(null);
   // const [listing, setListing] = useState(undefined);
   const { active, account, chainId } = useWeb3React();
-  const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5"; //"0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
+  const rentalsAddress = RentalsABI.networks[1337].address;
   const contract = new useContract(rentalsAddress, RentalsABI.abi);
 
   const handleInputChange = (event) => {
     setUnit({ ...unit, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(unit);
-    setUnit({
-      unitNumber: "",
-      unitAddress: "",
-      rent: "",
-      deposit: "",
-      term: "",
-      startDate: "",
-    });
   };
 
   const AddUnit = async (event) => {

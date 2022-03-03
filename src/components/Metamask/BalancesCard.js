@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
-import Text from "./Text";
-import "../styling/BalanceCard.css";
-import { colors } from "../theme";
-import useEth from "../hooks/useEth";
-import { shortenAddress } from "../utils/shortenAddress";
+import { shortenAddress } from "../../utils/shortenAddress";
+import useEth from "../../hooks/useEth";
+import Text from "../Text";
+import "../../styling/BalanceCard.css";
 
 const BalanceCard = () => {
   const { active, account } = useWeb3React();

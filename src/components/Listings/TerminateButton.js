@@ -1,31 +1,33 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Link } from "react-router-dom";
-import "../styling/Cards.css";
-import "../styling/UnitCard.css";
-import { Spinner } from "react-bootstrap";
-import { colors } from "../theme";
-import Text from "./Text";
+import React, { useState, useContext } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { useContract } from "../hooks/useContract";
+import { useContract } from "../../hooks/useContract";
+import { UnitContext } from "../../hooks/useUnitInfo";
+import { Spinner } from "react-bootstrap";
+import { colors } from "../../theme";
+import Text from "../Text";
+import "../../styling/Cards.css";
+import "../../styling/UnitCard.css";
 
-import RentalsABI from "../contracts/Rentals.json";
+import RentalsABI from "../../contracts/Rentals.json";
 
 const unitState = {
   LOADING: "LOADING",
   WAITING: "WAITING_CONFIRMATIONS",
   READY: "READY",
-  LEASED: "LEASED",
+  TERMINATED: "TERMINATED",
   ERROR: "ERROR",
 };
 
 const CONFIRMATION_COUNT = 2;
 
-const EditLeaseButton = ({ unit, onRent }) => {
+const TerminateButton = () => {
+  const item = useContext(UnitContext);
+  const { unitNumber, deposit } = item;
   const [unitStatus, setUnitStatus] = useState(unitState.READY);
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
   const { active, account, chainId } = useWeb3React();
-  const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
+  const rentalsAddress = RentalsABI.networks[1337].address;
   const contract = useContract(rentalsAddress, RentalsABI.abi);
 
   const onTerminate = async (event) => {
@@ -38,7 +40,7 @@ const EditLeaseButton = ({ unit, onRent }) => {
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await transaction.wait(confirmations);
       setTxHash(transaction.hash);
-      setUnitStatus(unitState.LEASED);
+      setUnitStatus(unitState.TERMINATED);
     } catch (e) {
       setUnitStatus(unitState.ERROR);
       if (e.code && typeof e.code === "number") {
@@ -47,7 +49,7 @@ const EditLeaseButton = ({ unit, onRent }) => {
     }
   };
 
-  const { LOADING, WAITING, READY, LEASED, ERROR } = unitState;
+  const { LOADING, WAITING, READY, TERMINATED, ERROR } = unitState;
 
   return (
     <div className="btn-container">
@@ -73,10 +75,10 @@ const EditLeaseButton = ({ unit, onRent }) => {
         ))}
       {unitStatus === READY && (
         <button type="button" className="btn-custom" onClick={onTerminate}>
-          EDIT LEASE
+          TERMINATE LEASE
         </button>
       )}
-      {unitStatus === LEASED && !!txHash && (
+      {unitStatus === TERMINATED && !!txHash && (
         <>
           <Text
             t3
@@ -85,26 +87,37 @@ const EditLeaseButton = ({ unit, onRent }) => {
           >
             Lease has been terminated!!!
           </Text>
-          <Link style={{ marginTop: "20px" }} to="/landlord">
-            Refresh
-          </Link>
+          <button
+            style={{
+              marginLeft: "20px",
+            }}
+            type="button"
+            className="btn-custom"
+            onClick={() => setUnitStatus(unitState.READY)}
+          >
+            Back
+          </button>
         </>
       )}
       {unitStatus === ERROR && (
         <>
-          <Text
-            style={{ marginTop: "20px", marginBottom: "20px" }}
-            color={colors.red}
-          >
-            {mmError || "Error encountered!"}
+          <Text style={{}} color={colors.red}>
+            {mmError || "Error Encountered!"}
           </Text>
-          <Link style={{ marginTop: "20px" }} to="/landlord">
-            Refresh
-          </Link>
+          <button
+            style={{
+              marginLeft: "20px",
+            }}
+            type="button"
+            className="btn-custom"
+            onClick={() => setUnitStatus(unitState.READY)}
+          >
+            Back
+          </button>
         </>
       )}
     </div>
   );
 };
 
-export default EditLeaseButton;
+export default TerminateButton;

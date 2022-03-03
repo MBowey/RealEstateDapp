@@ -1,19 +1,14 @@
-import React, { useState, useEffect, useCallback, createContext } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ListingItem from "./ListingItem";
-import { Link } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
-import { useContract } from "../hooks/useContract";
+import { useContract } from "../../hooks/useContract";
 import { BigNumber } from "ethers";
-import { shortenAddress } from "../utils/shortenAddress";
-import { UnitContext } from "../hooks/useUnitInfo";
-
-import styled from "styled-components";
 import { Spinner } from "react-bootstrap";
-import { colors } from "../theme";
-import "../styling/Cards.css";
-import "../styling/UnitCard.css";
+import { colors } from "../../theme";
+import "../../styling/Cards.css";
+import "../../styling/UnitCard.css";
 
-import RentalsABI from "../contracts/Rentals.json";
+import RentalsABI from "../../contracts/Rentals.json";
 
 const listingState = {
   LOADING: "LOADING",
@@ -45,8 +40,8 @@ const FilteredListing = ({ listings, state }) => {
 const Listings = () => {
   const [listings, setListings] = useState([]);
   const [status, setStatus] = useState(listingState.LOADING);
-  const { active } = useWeb3React();
-  const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
+  const { active, chainId } = useWeb3React();
+  const rentalsAddress = RentalsABI.networks[1337].address;
   const contract = useContract(rentalsAddress, RentalsABI.abi);
 
   const getUnits = useCallback(async (contract) => {

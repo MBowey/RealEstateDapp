@@ -1,8 +1,7 @@
 import React from "react";
 import "../App.css";
 import Rentals from "../components/Rentals/Rentals";
-import HeroSection from "../components/HeroSection";
-import Listings from "../components/Listings";
+import Listings from "../components/Listings/Listings";
 
 function Landlord() {
   return (

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "./button";
+import MetamaskConnectButton from "./Metamask/MetamaskConnectButton";
+import BalancesCard from "./Metamask/BalancesCard";
 import "../styling/Navbar.css";
-import MetamaskConnectButton from "./MetamaskConnectButton";
-import BalancesCard from "./BalancesCard";
 
 function Navbar() {
   const [click, setClick] = useState(false);

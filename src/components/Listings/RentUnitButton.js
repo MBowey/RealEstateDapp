@@ -1,15 +1,14 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import "../styling/Cards.css";
-import "../styling/UnitCard.css";
-import { Spinner } from "react-bootstrap";
-import { colors } from "../theme";
-import Text from "./Text";
 import { useWeb3React } from "@web3-react/core";
-import { useContract } from "../hooks/useContract";
-import { UnitContext } from "../hooks/useUnitInfo";
+import { useContract } from "../../hooks/useContract";
+import { UnitContext } from "../../hooks/useUnitInfo";
+import "../../styling/Cards.css";
+import "../../styling/UnitCard.css";
+import { Spinner } from "react-bootstrap";
+import { colors } from "../../theme";
+import Text from "../Text";
 
-import RentalsABI from "../contracts/Rentals.json";
+import RentalsABI from "../../contracts/Rentals.json";
 
 const unitState = {
   LOADING: "LOADING",
@@ -28,7 +27,7 @@ const RentUnitButton = () => {
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
   const { active, account, chainId } = useWeb3React();
-  const rentalsAddress = "0x03Bb27A85a288E98C25dC3f4671eD9F4930b31B5";
+  const rentalsAddress = RentalsABI.networks[1337].address;
   const contract = useContract(rentalsAddress, RentalsABI.abi);
 
   const onRentClick = async (event) => {

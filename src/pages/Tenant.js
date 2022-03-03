@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import Listings from "../components/Listings";
+import Listings from "../components/Listings/Listings";
 import HeroSection from "../components/HeroSection";
 
 function Tenant() {
