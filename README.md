@@ -58,7 +58,7 @@ yarn start
 
 ![Add Unit](/src/images/AddUnit.png)
 
-4. `Tenant` can then rent available unit on tenant page
+4. `Tenant` can then rent available units on tenant page
 
 ![Rent Unit](/src/images/RentUnit.png)
 
