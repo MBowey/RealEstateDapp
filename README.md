@@ -4,7 +4,7 @@
 
 ## Overview
 
-Real Estate Dapp is a decentralized marketplace for landlords to be able to lease individual units to tenants. Landlords are able to add units to the marketplace and list them for rent with the desired lease terms (rent, deposit,term, etc). Tenants can search properties for availability by unit number and secure a unit for rent by depositing 2 months rent (first and last month).
+Real Estate Dapp is a decentralized marketplace for landlords to be able to lease individual units to tenants via the Ethereum blockchain. Landlords are able to list units to the online marketplace with desired lease terms (rent, deposit, term, start date, etc). Tenants can then search properties based on availability and rent units by depositing the required amount of ETH set out in the lease. The smart contract automates the payment process of depositing ETH and the reccuring monthly rent payments.
 
 ## Tech Stack
 
@@ -47,7 +47,7 @@ truffle migrate --network development
 yarn start
 ```
 
-**Step 7:** Connect Metamask Wallet
+**Step 6:** Connect Metamask Wallet
 
 - Make sure Metamask network is setup to port `8545` and Chain ID is `1337`.
 - Import mnemonic created from your local ganache blockchain and selct first address (contract owner)
@@ -62,9 +62,8 @@ yarn start
 - Deposit Amount per Month (ETH)
 - Lease Term
 - Start Date
-- Landlord (Ethereum Address)
 
-4. `Tenant` can then rent available unit on tenant page months rent to landlord
+4. `Tenant` can then rent available unit on tenant page
 
    - Deposit amount will automatically be sent via the contract base on amount set by the landlord
    - Unit status will be changed to `Occupied`
