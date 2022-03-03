@@ -56,17 +56,14 @@ yarn start
 
 1. On Landlord Page, `Landlord/Owner` will list a new unit for lease with the following details:
 
-- Unit Number
-- Unit Address
-- Rent Amount per Month (ETH)
-- Deposit Amount per Month (ETH)
-- Lease Term
-- Start Date
+![Add Unit](/src/images/AddUnit.png)
 
 4. `Tenant` can then rent available unit on tenant page
 
-   - Deposit amount will automatically be sent via the contract base on amount set by the landlord
-   - Unit status will be changed to `Occupied`
+![Rent Unit](/src/images/RentUnit.png)
+
+- Deposit amount will automatically be sent via the contract base on amount set by the landlord
+- Unit status will be changed to `Occupied`
 
 5. `Landlord/Owner` can terminate lease at anytime
 

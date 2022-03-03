@@ -71,7 +71,7 @@ const ListingItem = ({ item }) => {
           <div className="cards__item__info">
             <div className="cards__item__text">
               <h5>Unit Number: </h5>
-              <h5>Unit Addres: </h5>
+              <h5>Unit Address: </h5>
               <h5>Rent: </h5>
               <h5>Deposit: </h5>
               <h5>Lease Term: </h5>
