@@ -1,25 +1,14 @@
-import React, { Component, useEffect, UseMemo, useState, useForm } from "react";
-import styled from "styled-components";
-import Text from "../Text";
-import { Spinner } from "react-bootstrap";
-import { AddRental } from "../../components/Rentals/AddRental";
-import { RentalCard } from "../../components/Rentals/RentalCard";
-import "../../styling/AddUnit.css";
-import { colors } from "../../theme";
-import { useRental } from "../../hooks/useRental";
+import React, { useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-// import RentalsABI from "../../static/RentalsABI";
-import { useAppContext } from "../../AppContext";
-// import { Spinner } from "react-bootstrap";
-import useEth from "../../hooks/useEth";
-import useTransaction from "../../hooks/useTransaction";
+import { useContract } from "../../hooks/useContract";
+import { Spinner } from "react-bootstrap";
+import { colors } from "../../theme";
+import { Button } from "../button";
+import Text from "../Text";
 import "../../App.css";
 import "../../styling/Units.css";
 import "../../styling/AddUnit.css";
 import "../../styling/button.css";
-import { Button } from "../button";
-import { useContract } from "../../hooks/useContract";
-import Listings from "../Listings";
 
 import RentalsABI from "../../contracts/Rentals.json";
 
@@ -33,31 +22,7 @@ const DetailsState = {
   LISTED: "LISTED",
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-top: 100px;
-  -webkit-box-align: center;
-  align-items: center;
-  flex: 1 1 0%;
-  overflow: hidden auto;
-  z-index: 1;
-`;
-
 const Rentals = () => {
-  // const state = {
-  //   id: "",
-  //   unitNumber: "",
-  //   unitAddress: "",
-  //   rent: "",
-  //   deposit: "",
-  //   term: "",
-  //   startDate: "",
-  //   // Status: "",
-  //   units: [],
-  // };
-
   const [status, setStatus] = useState(DetailsState.READY);
   const [unit, setUnit] = useState({
     unitNumber: "",
@@ -211,7 +176,7 @@ const Rentals = () => {
               </label>
               <label className="custom-input">
                 <input
-                  type="text"
+                  type="int"
                   value={unit.rent.rent}
                   name="rent"
                   autoComplete="off"
@@ -222,7 +187,7 @@ const Rentals = () => {
               </label>
               <label className="custom-input">
                 <input
-                  type="text"
+                  type="int"
                   value={unit.deposit.deposit}
                   name="deposit"
                   autoComplete="off"
@@ -244,7 +209,7 @@ const Rentals = () => {
               </label>
               <label className="custom-input">
                 <input
-                  type="text"
+                  type="number"
                   value={unit.startDate.startDate}
                   name="startDate"
                   autoComplete="off"
