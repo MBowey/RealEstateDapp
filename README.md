@@ -58,19 +58,19 @@ yarn start
 
 ![Add Unit](/src/images/AddUnit.png)
 
-4. `Tenant` can then rent available units on tenant page
+4. `Tenant` can then rent available units on the tenant page
 
 ![Rent Unit](/src/images/RentUnit.png)
 
-- Deposit amount will automatically be sent via the contract base on amount set by the landlord
-- Unit status will be changed to `Occupied`
+- Deposit amount will automatically be sent via the smart contract set by the landlord
+- Once the transaction is complete, the unit status will be updated to `Occupied` and the tenant's ethereum address will be updated to the contract
 
 5. `Landlord/Owner` can terminate lease at anytime
 
-   - Tenant is removed from unit list
+   - Tenant is removed from unit contract
    - Unit status is updated to `Available`
 
-6. (Future) Monthly timestamp that automatically transfers funds from `Tenant` account to `Landlord/Owner` on the first of every month (possible use of oracle to ensure calender accuracy)
+6. (Future) Monthly timestamp that automatically transfers rent from `Tenant` account to `Landlord/Owner` on the first of every month (possible use of oracle to ensure calender accuracy)
 
 7. (Future) `Tenant` has option to sublet unit with `Landlord` permission
 
