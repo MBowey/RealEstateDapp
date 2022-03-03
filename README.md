@@ -41,61 +41,46 @@ Network/Chain ID: 1337
 truffle migrate --network development
 ```
 
-**Step 5:** Update `dapp.js` file with Contract Address & ABI from deployment
-
-```bash
-const contractAddress = "0x00000000000000000000000000000000000"
-const contractABI = []
-```
-
-**Step 6:** Run User Interface (http://localhost:3000`)
+**Step 5:** Run User Interface (http://localhost:3000`)
 
 ```bash
 yarn start
 ```
 
-**Step 7:** Connect Metamask
+**Step 7:** Connect Metamask Wallet
 
 - Make sure Metamask network is setup to port `8545` and Chain ID is `1337`.
-- Import first address (contract owner) from Ganache to Metamask with private key.
+- Import mnemonic created from your local ganache blockchain and selct first address (contract owner)
 
 ## Workflow: Real Estate Leasing
 
-1. `Landlord/Owner` will creates a new unit with the following details
+1. On Landlord Page, `Landlord/Owner` will list a new unit for lease with the following details:
 
 - Unit Number
-- Location
-- Number of bedrooms
-- Number of bathrooms
-- Unit Status/Availability (ForRent/Occupied)
+- Unit Address
+- Rent Amount per Month (ETH)
+- Deposit Amount per Month (ETH)
+- Lease Term
+- Start Date
 - Landlord (Ethereum Address)
 
-2. `Landlord/Owner` can then list the unit for rent with the following details
+4. `Tenant` can then rent available unit on tenant page months rent to landlord
 
-- LeaseID
-- Unit Number
-- Monthly Rental Amount (ETH)
-- Required Depoist Amount (ETH) - 2 Months Rent
-- Lease Term
+   - Deposit amount will automatically be sent via the contract base on amount set by the landlord
+   - Unit status will be changed to `Occupied`
 
-3. `Tenant` can then fetch unit information for availability and lease details
-
-4. `Tenant` can then rent unit by transfering 2 months rent to landlord
-
-   - Unit/Lease are both updated with tenant's ethereum address
-
-5. `Landlord/Owner` has ability to terminate lease
+5. `Landlord/Owner` can terminate lease at anytime
 
    - Tenant is removed from unit list
-   - Unit status is updated to `ForRent`
+   - Unit status is updated to `Available`
 
 6. (Future) Monthly timestamp that automatically transfers funds from `Tenant` account to `Landlord/Owner` on the first of every month (possible use of oracle to ensure calender accuracy)
 
-7. (Future) `Tenant` has option to re-assign lease or sublet with `Landlord` permission
+7. (Future) `Tenant` has option to sublet unit with `Landlord` permission
 
 ## Future Implementations
 
-- Update User Interface with REACT to enable realtime updates of dynamic data
+- Utilize IPFS to upload pictures of units
 - Integrate Subgraph (Graph Protocol) for enhanced querying and scalability
 - Add additional features
   - Encorporate `block.timestamp` for start/end lease dates
