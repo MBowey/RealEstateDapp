@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { useContract } from "../../hooks/useContract";
+import { parseEther } from "@ethersproject/units";
 import { Spinner } from "react-bootstrap";
 import { colors } from "../../theme";
 import { Button } from "../button";
@@ -59,14 +60,15 @@ const Rentals = () => {
       const { unitAddress, rent, deposit, term, startDate } = unit;
       const txn = await contract.addUnit(
         unitAddress,
-        rent,
-        deposit,
+        parseEther(rent),
+        parseEther(deposit),
         term,
         startDate,
         {
           from: account,
         }
       );
+      console.log(parseEther(rent));
 
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await txn.wait(confirmations);

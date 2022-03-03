@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import RentUnitButton from "./RentUnitButton";
 import TerminateButton from "./TerminateButton";
+import { formatEther } from "@ethersproject/units";
 import { shortenAddress } from "../../utils/shortenAddress";
 import "../../styling/Cards.css";
 import "../../styling/UnitCard.css";
@@ -58,7 +59,7 @@ const ListingItem = ({ item }) => {
     tenant,
     state,
   } = item;
-
+  console.log("rent:" + formatEther(rent));
   return (
     <UnitContext.Provider value={item}>
       <li className="cards__item">
@@ -85,8 +86,8 @@ const ListingItem = ({ item }) => {
             <div className="cards__item__values">
               <h5>{unitNumber.toNumber()}</h5>
               <h5> {unitAddress}</h5>
-              <h5>{rent.toNumber()} ETH/mo</h5>
-              <h5>{deposit.toNumber()} ETH/mo</h5>
+              <h5>{formatEther(rent)} ETH/mo</h5>
+              <h5>{formatEther(deposit)} ETH/mo</h5>
               <h5>{term.toNumber()} Months</h5>
               <h5> {startDate}</h5>
               {item.state === 0 && <h5> Available</h5>}
