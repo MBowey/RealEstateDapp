@@ -35,7 +35,6 @@ const Rentals = () => {
   });
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
-  // const [listing, setListing] = useState(undefined);
   const { active, account, chainId } = useWeb3React();
   const rentalsAddress = RentalsABI.networks[1337].address;
   const contract = new useContract(rentalsAddress, RentalsABI.abi);
@@ -68,7 +67,6 @@ const Rentals = () => {
           from: account,
         }
       );
-      console.log(parseEther(rent));
 
       const confirmations = chainId === 1337 ? 1 : CONFIRMATION_COUNT;
       await txn.wait(confirmations);
@@ -160,7 +158,7 @@ const Rentals = () => {
               </label>
               <label className="custom-input">
                 <input
-                  type="text"
+                  type="int"
                   value={unit.term.term}
                   name="term"
                   autoComplete="off"
@@ -171,7 +169,7 @@ const Rentals = () => {
               </label>
               <label className="custom-input">
                 <input
-                  type="number"
+                  type="text"
                   value={unit.startDate.startDate}
                   name="startDate"
                   autoComplete="off"

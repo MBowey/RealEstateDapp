@@ -13,7 +13,7 @@ const BalanceCard = () => {
     if (account) {
       fetchEthBalance();
     }
-  }, [account]);
+  }, [account, fetchEthBalance]);
 
   if (!active) {
     return <Text>{""}</Text>;

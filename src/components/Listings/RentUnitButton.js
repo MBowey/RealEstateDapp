@@ -23,15 +23,12 @@ const CONFIRMATION_COUNT = 2;
 const RentUnitButton = () => {
   const item = useContext(UnitContext);
   const { unitNumber, deposit } = item;
-  console.log(deposit);
   const [unitStatus, setUnitStatus] = useState(unitState.READY);
   const [mmError, setMmError] = useState(null);
   const [txHash, setTxHash] = useState(null);
   const { active, account, chainId } = useWeb3React();
   const rentalsAddress = RentalsABI.networks[1337].address;
   const contract = useContract(rentalsAddress, RentalsABI.abi);
-
-  console.log(deposit, "2");
 
   const onRentClick = async (event) => {
     setUnitStatus(unitState.LOADING);

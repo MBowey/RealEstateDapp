@@ -31,10 +31,6 @@ const ListingButtons = () => {
     return <RentUnitButton />;
   }
 
-  //   if (pathname === "/landlord") {
-  //     return <EditLeaseButton />;
-  //   }
-
   return <></>;
 };
 
@@ -59,7 +55,7 @@ const ListingItem = ({ item }) => {
     tenant,
     state,
   } = item;
-  console.log("rent:" + formatEther(rent));
+
   return (
     <UnitContext.Provider value={item}>
       <li className="cards__item">
