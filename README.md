@@ -4,7 +4,7 @@
 
 ## Overview
 
-Real Estate Dapp is a decentralized marketplace for landlords to be able to lease individual units to tenants via the Ethereum blockchain. Landlords are able to list units to the online marketplace with desired lease terms (rent, deposit, term, start date, etc). Tenants can then search properties based on availability and rent units by depositing the required amount of ETH set out in the lease. The smart contract automates the payment process of depositing ETH and the reccuring monthly rent payments.
+Real Estate Dapp is a decentralized marketplace for landlords to be able to lease individual units to tenants via the Ethereum blockchain. Landlords are able to list units online with their desired lease terms (rent, deposit, term, start date, etc). Tenants can then search properties based on availability and rent units by depositing the required amount of ETH set out in the lease. The smart contract automates the payment process of depositing ETH and the reccuring monthly rent payments.
 
 ## Tech Stack
 
