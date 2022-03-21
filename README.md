@@ -8,7 +8,7 @@ Real Estate Dapp is a decentralized marketplace for landlords to be able to leas
 
 ## Tech Stack
 
-FRONT-END: REACT, Web3.js, Metamask
+FRONT-END: REACT, Web3-React, Ethers.js, Metamask
 
 BACK-END: Truffle, Ganache
 
@@ -87,7 +87,7 @@ yarn start
 
 ## Directory Structure
 
-- `main` - Front End Directory
+- `src` - Front End Directory
 - `contracts` - Real Estate Smart Contracts
 - `migrations` - Truffle files for deploying smart contracts
 - `test` - Truffle files for testing smart contracts locally
